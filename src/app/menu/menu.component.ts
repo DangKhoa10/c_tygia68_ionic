@@ -86,7 +86,7 @@ export class MenuComponent implements OnInit {
         });
         modal.present();
         const { data, role } = await modal.onWillDismiss();
-        
+
         break;
       default:
         break;
