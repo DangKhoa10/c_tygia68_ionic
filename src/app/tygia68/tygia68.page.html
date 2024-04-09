@@ -1,9 +1,26 @@
 <ion-header class="ion-no-border" [translucent]="true">
-  <ion-toolbar>
-    <ion-title color="primary">Tỷ giá 68</ion-title>
+  <ion-toolbar class="ion-padding">
+    <ion-icon
+      slot="end"
+      color="light"
+      size="large"
+      name="notifications"
+    ></ion-icon>
   </ion-toolbar>
+  <div class="exchange-select">
+    <ion-select
+      interface="popover"
+      label-placement="floating"
+    >
+      <ion-select-option value="0">Trang chủ</ion-select-option>
+      <ion-select-option value="1">Thị trường</ion-select-option>
+      <ion-select-option value="2">USDT</ion-select-option>
+      <ion-select-option value="3">Ngân hàng</ion-select-option>
+      <ion-select-option value="4">Giá vàng</ion-select-option>
+    </ion-select>
+  </div>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  
+  <div style="background-color: aqua; height: 5000px">aa</div>
 </ion-content>
