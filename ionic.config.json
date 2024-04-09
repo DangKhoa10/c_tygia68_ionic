@@ -1,0 +1,7 @@
+{
+  "name": "tygia68_ionic",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
