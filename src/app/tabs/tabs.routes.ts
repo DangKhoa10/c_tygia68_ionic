@@ -7,30 +7,30 @@ export const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'tab1',
+        path: 'tygia68',
         loadComponent: () =>
-          import('../tab1/tab1.page').then((m) => m.Tab1Page),
+          import('../tygia68/tygia68.page').then((m) => m.Tygia68Page),
       },
       {
-        path: 'tab2',
+        path: 'article',
         loadComponent: () =>
-          import('../tab2/tab2.page').then((m) => m.Tab2Page),
+          import('../article/article.page').then((m) => m.ArticlePage),
       },
       {
-        path: 'tab3',
+        path: 'ads',
         loadComponent: () =>
-          import('../tab3/tab3.page').then((m) => m.Tab3Page),
+          import('../ads/ads.page').then((m) => m.AdsPage),
       },
       {
         path: '',
-        redirectTo: '/tabs/tab1',
+        redirectTo: '/tygia68',
         pathMatch: 'full',
       },
     ],
   },
   {
     path: '',
-    redirectTo: '/tabs/tab1',
+    redirectTo: 'tabs/tygia68',
     pathMatch: 'full',
   },
 ];
