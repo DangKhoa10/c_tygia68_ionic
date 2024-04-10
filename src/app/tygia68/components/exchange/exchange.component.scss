@@ -1,0 +1,14 @@
+.exchange-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h3 {
+        margin: 0;
+    }
+
+    span {
+        font-size: 14px;
+        color: #9da4af;
+    }
+}

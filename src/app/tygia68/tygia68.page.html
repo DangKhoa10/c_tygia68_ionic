@@ -3,7 +3,7 @@
     <ion-icon
       slot="end"
       color="light"
-      size="large"
+      size="small"
       name="notifications"
     ></ion-icon>
   </ion-toolbar>
@@ -11,16 +11,23 @@
     <ion-select
       interface="popover"
       label-placement="floating"
+      [(ngModel)]="valueChoose"
     >
-      <ion-select-option value="0">Trang chủ</ion-select-option>
-      <ion-select-option value="1">Thị trường</ion-select-option>
-      <ion-select-option value="2">USDT</ion-select-option>
-      <ion-select-option value="3">Ngân hàng</ion-select-option>
-      <ion-select-option value="4">Giá vàng</ion-select-option>
+      <ion-select-option *ngFor="let item of options" [value]="item.value"
+        >{{item.label}}</ion-select-option
+      >
     </ion-select>
   </div>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div style="background-color: aqua; height: 5000px">aa</div>
+  @if(valueChoose() === 'ALL'){ }@else {
+  <app-exchange
+    [type]="valueChoose()"
+    [showTitle]="false"
+    [title]="title"
+    [limit]="20"
+    [infiniteLoad]="true"
+  ></app-exchange>
+  }
 </ion-content>

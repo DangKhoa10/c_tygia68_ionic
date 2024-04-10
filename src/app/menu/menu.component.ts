@@ -56,7 +56,7 @@ export class MenuComponent implements OnInit {
   ];
 
   toggleChange(value: any | boolean) {
-    if ((typeof value === 'boolean' && value) || value.detail.checked) {
+    if ((typeof value === 'boolean' && value) || value.detail?.checked) {
       document.documentElement.classList.add('dark');
       localStorage.setItem('theme', 'dark');
     } else {

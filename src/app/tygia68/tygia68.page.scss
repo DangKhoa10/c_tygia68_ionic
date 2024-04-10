@@ -1,22 +1,26 @@
 ion-header ion-toolbar {
     --background: url("https://tygia68.com/assets/imgs/background.png") no-repeat center / cover;
-    --min-height: 160px;
+    --min-height: 120px;
     --opacity: 1;
     --ion-padding: 8px;
 
 }
 
 ion-header {
+    padding-bottom: 40px;
+    background: var(--ion-item-background, #ffffff);
+
+
     .exchange-select {
-        background: var(--ion-background-color, #ffffff);
+        background: var(--ion-item-background, #ffffff);
         position: absolute;
-        bottom: 0;
+        bottom: 40px;
         left: 50%;
         transform: translate(-50%, 50%);
         width: 70%;
         z-index: 10;
         border-radius: 8px;
-        box-shadow: 0 0 10px var(--background);
+        box-shadow: 0 0 10px var(--shadow-color);
 
         ion-select {
             width: 100%;
