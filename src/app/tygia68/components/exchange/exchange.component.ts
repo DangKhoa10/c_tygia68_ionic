@@ -8,8 +8,14 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
+import { InfiniteScrollCustomEvent, IonicModule } from '@ionic/angular';
+import { addIcons } from 'ionicons';
+import { barChart, caretDown, caretUp } from 'ionicons/icons';
 import * as moment from 'moment';
+import {
+  ExchangeFieldModel,
+  QueryExchangeModel,
+} from 'src/app/shared/models/exchange.model';
 import { ExchangeService } from 'src/app/shared/services/exchange.service';
 
 @Component({
@@ -26,8 +32,11 @@ export class ExchangeComponent implements OnChanges {
   @Input() limit: number = 5;
   @Input() infiniteLoad: boolean = false;
 
-  query = signal<Object>({});
-  data: Object[];
+  isLoadMore = true;
+  query = signal<QueryExchangeModel>({
+    page: 1,
+  });
+  data: ExchangeFieldModel[] = [];
 
   cryptoOptions: ['VND', 'USD'];
 
@@ -36,14 +45,24 @@ export class ExchangeComponent implements OnChanges {
 
   listenQueryChange = effect(() => {
     this.exchangeService.ListExchange(this.query()).then((value) => {
-      this.data = value.data;
+      let { data, pagination } = value;
+      if (pagination.currentPage == pagination.lastPage) {
+        this.isLoadMore = false;
+      }
+      if (pagination.currentPage > 1) {
+        this.data = [...this.data, ...data];
+      } else {
+        this.data = data;
+      }
     });
   });
 
   getDate() {
     this.timeUpdate = moment().format('DD/MM/yyyy - hh:mm');
   }
-  constructor() {}
+  constructor() {
+    addIcons({ barChart, caretDown, caretUp });
+  }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['type']) {
       this.handleChangeType();
@@ -52,6 +71,8 @@ export class ExchangeComponent implements OnChanges {
 
   handleChangeType() {
     this.getDate();
+    this.isLoadMore = true;
+    this.data = [];
     if (['MARKET', 'USDT', 'FIAT', 'CRYPTO'].includes(this.type)) {
       let queryData = {
         page: 1,
@@ -83,6 +104,19 @@ export class ExchangeComponent implements OnChanges {
     }
 
     if (['GOLD'].includes(this.type)) {
+    }
+  }
+
+  onIonInfinite(ev: any) {
+    if (this.infiniteLoad && this.isLoadMore) {
+      let queryNew = { ...this.query() };
+      queryNew.page = queryNew.page! + 1;
+      this.query.set(queryNew);
+      setTimeout(() => {
+        (ev as InfiniteScrollCustomEvent).target.complete();
+      }, 500);
+    } else {
+      (ev as InfiniteScrollCustomEvent).target.complete();
     }
   }
 }

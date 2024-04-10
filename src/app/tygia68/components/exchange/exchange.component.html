@@ -1,4 +1,4 @@
-<div class="ion-padding">
+<div class="exchange-block ion-padding">
   <div class="exchange-header">
     <h3>
       @if(showTitle){
@@ -7,20 +7,83 @@
     </h3>
     <span> Cập nhật: {{ timeUpdate }} </span>
   </div>
-  <ion-grid>
-    <ion-row>
-      <ion-col size="4">Tên</ion-col>
-      <ion-col size="3">Mua</ion-col>
-      <ion-col size="3">Bán</ion-col>
-      <ion-col size="2">Chart</ion-col>
-    </ion-row>
-
-    <ion-row *ngFor="let item of data">
-      <ion-col size="4">Tên</ion-col>
-      <ion-col size="3">Mua</ion-col>
-      <ion-col size="3">Bán</ion-col>
-      <ion-col size="2">Chart</ion-col>
+  <ion-grid class="exchange-table">
+    <ion-row class="sticky-top exchange-table-header">
+      <ion-col size="4" class="ion-text-start">Tên</ion-col>
+      <ion-col size="3" class="ion-text-end">Mua</ion-col>
+      <ion-col size="3" class="ion-text-end">Bán</ion-col>
+      <ion-col size="2" class="ion-text-end"></ion-col>
     </ion-row>
   </ion-grid>
-
+  <ion-grid class="exchange-table">
+    <ion-row *ngFor="let item of data" class="exchange-table-row">
+      <ion-col size="4" class="ion-text-start" class="flex items-center">{{
+        item.from + "/" + item.to
+      }}</ion-col>
+      <ion-col size="3" class="ion-text-end">
+        <div>
+          {{ item.buy | number }}
+        </div>
+        <div class="flex mt-4 justify-end items-center">
+          @if(item.volatility_buy >= 0){
+          <ion-icon
+            class="mini"
+            size="small"
+            color="success"
+            name="caret-up"
+          ></ion-icon>
+          <ion-text color="success" class="fs-12">
+            {{ item.volatility_buy | number }}
+          </ion-text>
+          }@else{
+          <ion-icon
+            class="mini"
+            size="small"
+            color="danger"
+            name="caret-down"
+          ></ion-icon>
+          <ion-text color="danger" class="fs-12">
+            {{ item.volatility_buy | number }}
+          </ion-text>
+          }
+        </div>
+      </ion-col>
+      <ion-col size="3" class="ion-text-end">
+        <div>
+          {{ item.sell | number }}
+        </div>
+        <div class="flex mt-4 justify-end items-center">
+          @if(item.volatility_sell >= 0){
+          <ion-icon
+            class="mini"
+            size="small"
+            color="success"
+            name="caret-up"
+          ></ion-icon>
+          <ion-text color="success" class="fs-12">
+            {{ item.volatility_sell | number }}
+          </ion-text>
+          }@else{
+          <ion-icon
+            class="mini"
+            size="small"
+            color="danger"
+            name="caret-down"
+          ></ion-icon>
+          <ion-text color="danger" class="fs-12">
+            {{ item.volatility_sell | number }}
+          </ion-text>
+          }
+        </div>
+      </ion-col>
+      <ion-col size="2" class="flex justify-end items-center">
+        <ion-icon color="secondary" name="bar-chart"></ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  @if(infiniteLoad && isLoadMore){
+  <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+  }@else{ }
 </div>
