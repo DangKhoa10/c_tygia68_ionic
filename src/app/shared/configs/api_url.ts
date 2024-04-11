@@ -5,7 +5,7 @@ export const ApiUrl = {
     GoldReference: () => 'exchange-rate/gold-reference',
     GoldArea: () => 'exchange-rate/price-of-area',
     NicePrice: () => 'exchange-rate/nice-price',
-    Bank: () => 'exchange-rate-bank',
+    Bank: (id: string) => `exchange-rate-bank/${id}`,
     ListGoldArea: () => 'exchange-rate/list-area-gold',
     ListBank: () => 'exchange-rate-bank/list-banks',
   },

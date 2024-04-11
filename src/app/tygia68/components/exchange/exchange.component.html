@@ -1,26 +1,76 @@
 <div class="exchange-block ion-padding">
-  <div class="exchange-header">
-    <h3>
-      @if(showTitle){
-      {{ title }}
-      }@else {}
-    </h3>
-    <span> Cập nhật: {{ timeUpdate }} </span>
+  <div
+    [ngClass]="{
+      'exchange-fixed': !showTitle
+    }"
+  >
+    @if(!showTitle){
+    <div class="exchange-tab">
+      @if(type === 'CRYPTO'){
+      <ion-chip
+        *ngFor="let item of cryptoOptions"
+        (click)="selectCryptoQuery(item)"
+        [ngClass]="{ active: query() && item === query()!.to }"
+        color="primary"
+        >{{ item }}</ion-chip
+      >
+      } @if(type === 'BANK'){
+      <ion-chip
+        *ngFor="let item of listBank"
+        (click)="selectBankQuery(item.code_bank)"
+        [ngClass]="{
+          active: queryBank() && item.code_bank === queryBank()!.bank_code
+        }"
+        color="primary"
+        >{{ item.bank }}</ion-chip
+      >
+      }
+    </div>
+    }@else{}
+    <div class="exchange-header">
+      <h5>
+        @if(showTitle){
+        {{ title }}
+        }@else {}
+      </h5>
+      <span> Cập nhật: {{ timeUpdate }} </span>
+    </div>
+    <ion-grid class="exchange-table">
+      @if(['MARKET', 'FIAT', 'USDT', 'GOLD'].includes(type)){
+      <ion-row class="sticky-top exchange-table-header">
+        <ion-col class="ion-text-start">Tên</ion-col>
+        <ion-col class="ion-text-end">Mua</ion-col>
+        <ion-col class="ion-text-end">Bán</ion-col>
+        @if(type !== 'USDT'){
+        <ion-col size="2" class="ion-text-end"></ion-col>
+        }
+      </ion-row>
+      } @if(['CRYPTO'].includes(type)){
+      <ion-row class="sticky-top exchange-table-header">
+        <ion-col size="4" class="ion-text-start">Tên</ion-col>
+        <ion-col size="6" class="ion-text-end">Giá</ion-col>
+        <ion-col size="2" class="ion-text-end">Biểu đồ</ion-col>
+      </ion-row>
+      } @if(['BANK'].includes(type)){
+      <ion-row class="sticky-top exchange-table-header">
+        <ion-col class="ion-text-start">Tên</ion-col>
+        <ion-col class="ion-text-center">Mua</ion-col>
+        <ion-col class="ion-text-center">C.Khoản</ion-col>
+        <ion-col class="ion-text-center">Bán</ion-col>
+      </ion-row>
+      }
+    </ion-grid>
   </div>
   <ion-grid class="exchange-table">
-    <ion-row class="sticky-top exchange-table-header">
-      <ion-col size="4" class="ion-text-start">Tên</ion-col>
-      <ion-col size="3" class="ion-text-end">Mua</ion-col>
-      <ion-col size="3" class="ion-text-end">Bán</ion-col>
-      <ion-col size="2" class="ion-text-end"></ion-col>
-    </ion-row>
-  </ion-grid>
-  <ion-grid class="exchange-table">
+    @if(['MARKET', 'FIAT', 'USDT'].includes(type)){
     <ion-row *ngFor="let item of data" class="exchange-table-row">
-      <ion-col size="4" class="ion-text-start" class="flex items-center">{{
-        item.from + "/" + item.to
-      }}</ion-col>
-      <ion-col size="3" class="ion-text-end">
+      <ion-col class="ion-text-start flex items-center">
+        <ion-img class="mr-4" [src]="item.from | iconCurrency"></ion-img>
+        <span>
+          {{ item.from + "/" + item.to }}
+        </span>
+      </ion-col>
+      <ion-col class="ion-text-end">
         <div>
           {{ item.buy | number }}
         </div>
@@ -48,7 +98,7 @@
           }
         </div>
       </ion-col>
-      <ion-col size="3" class="ion-text-end">
+      <ion-col class="ion-text-end">
         <div>
           {{ item.sell | number }}
         </div>
@@ -76,14 +126,145 @@
           }
         </div>
       </ion-col>
-      <ion-col size="2" class="flex justify-end items-center">
+      @if(type !== 'USDT'){
+      <ion-col
+        size="2"
+        class="flex justify-end items-center"
+        (click)="openChart(item.from, item.to)"
+      >
+        <ion-icon color="secondary" name="bar-chart"></ion-icon>
+      </ion-col>
+      }
+    </ion-row>
+    }@if(['CRYPTO'].includes(type)){
+    <ion-row *ngFor="let item of data" class="exchange-table-row">
+      <ion-col size="4" class="ion-text-start flex items-center">{{
+        item.from + "/" + item.to
+      }}</ion-col>
+      <ion-col size="6" class="ion-text-end">
+        <div>
+          {{ item.buy | number }}
+        </div>
+        <div class="flex mt-4 justify-end items-center">
+          @if(item.volatility_buy >= 0){
+          <ion-icon
+            class="mini"
+            size="small"
+            color="success"
+            name="caret-up"
+          ></ion-icon>
+          <ion-text color="success" class="fs-12">
+            {{ item.volatility_buy | number }}
+          </ion-text>
+          }@else{
+          <ion-icon
+            class="mini"
+            size="small"
+            color="danger"
+            name="caret-down"
+          ></ion-icon>
+          <ion-text color="danger" class="fs-12">
+            {{ item.volatility_buy | number }}
+          </ion-text>
+          }
+        </div>
+      </ion-col>
+      <ion-col
+        size="2"
+        class="flex justify-end items-center"
+        (click)="openChart(item.from, item.to)"
+      >
         <ion-icon color="secondary" name="bar-chart"></ion-icon>
       </ion-col>
     </ion-row>
+    } @if(['GOLD'].includes(type)){
+    <ion-row *ngFor="let item of dataGold" class="exchange-table-row">
+      <ion-col class="ion-text-start flex items-center">{{
+        item.name
+      }}</ion-col>
+      <ion-col class="ion-text-end">
+        <div>
+          {{ item.buyingPrice | number }}
+        </div>
+        <div class="flex mt-4 justify-end items-center">
+          @if(item.buyChange >= 0){
+          <ion-icon
+            class="mini"
+            size="small"
+            color="success"
+            name="caret-up"
+          ></ion-icon>
+          <ion-text color="success" class="fs-12">
+            {{ item.buyChange | number }}
+          </ion-text>
+          }@else{
+          <ion-icon
+            class="mini"
+            size="small"
+            color="danger"
+            name="caret-down"
+          ></ion-icon>
+          <ion-text color="danger" class="fs-12">
+            {{ item.buyChange | number }}
+          </ion-text>
+          }
+        </div>
+      </ion-col>
+      <ion-col class="ion-text-end">
+        <div>
+          {{ item.sellingPrice | number }}
+        </div>
+        <div class="flex mt-4 justify-end items-center">
+          @if(item.sellChange >= 0){
+          <ion-icon
+            class="mini"
+            size="small"
+            color="success"
+            name="caret-up"
+          ></ion-icon>
+          <ion-text color="success" class="fs-12">
+            {{ item.sellChange | number }}
+          </ion-text>
+          }@else{
+          <ion-icon
+            class="mini"
+            size="small"
+            color="danger"
+            name="caret-down"
+          ></ion-icon>
+          <ion-text color="danger" class="fs-12">
+            {{ item.sellChange | number }}
+          </ion-text>
+          }
+        </div>
+      </ion-col>
+    </ion-row>
+    } @if(['BANK'].includes(type)){
+    <ion-row *ngFor="let item of dataBank" class="exchange-table-row">
+      <ion-col class="ion-text-start flex items-center">{{
+        item.exchange_name
+      }}</ion-col>
+      <ion-col class="justify-center flex items-center">
+        <div>
+          {{ item.buy_TM }}
+        </div>
+      </ion-col>
+      <ion-col class="justify-center flex items-center">
+        <div>
+          {{ item.buy_CK }}
+        </div>
+      </ion-col>
+      <ion-col class="justify-center flex items-center">
+        <div>
+          {{ item.sell_TM }}
+        </div>
+      </ion-col>
+    </ion-row>
+    }
   </ion-grid>
-  @if(infiniteLoad && isLoadMore){
+  @if(infiniteLoad && isLoadMore && !['GOLD', 'BANK'].includes(type)){
   <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
   </ion-infinite-scroll>
-  }@else{ }
+  }@else{}
 </div>

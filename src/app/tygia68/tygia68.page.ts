@@ -65,6 +65,9 @@ export class Tygia68Page {
       this.options.find((x) => x.value === this.valueChoose())?.label ?? '';
   });
 
+  selectValue(value: string) {
+    this.valueChoose.set(value);
+  }
   constructor() {
     addIcons({ notifications });
   }
