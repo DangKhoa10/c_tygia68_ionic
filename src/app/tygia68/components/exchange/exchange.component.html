@@ -65,7 +65,11 @@
     @if(['MARKET', 'FIAT', 'USDT'].includes(type)){
     <ion-row *ngFor="let item of data" class="exchange-table-row">
       <ion-col class="ion-text-start flex items-center">
+        @if(type === 'USDT'){
+        <ion-img class="mr-4" [src]="item.to | iconCurrency"></ion-img>
+        }@else {
         <ion-img class="mr-4" [src]="item.from | iconCurrency"></ion-img>
+        }
         <span>
           {{ item.from + "/" + item.to }}
         </span>

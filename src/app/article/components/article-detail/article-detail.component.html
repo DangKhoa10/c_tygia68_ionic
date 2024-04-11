@@ -1,13 +1,23 @@
 
-<div id="article-detail">
-  <ion-header [translucent]="true" (click)="checkCanGoBack()">
-    <ion-toolbar>
-      <ion-icon name="arrowBackCircleOutline"></ion-icon>  <span>Quay lại</span>
-    </ion-toolbar>
-  </ion-header>
-  <ion-content [fullscreen]="true">
-    <p>
-      article-detail works!
-    </p>
-  </ion-content>
-</div>
+<ion-header [translucent]="true" (click)="checkCanGoBack()">
+  <ion-toolbar class="header-top">
+    <ion-icon name="back" size="large"></ion-icon> <ion-title>Quay
+      lại</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true">
+  <div id="article-detail" class="ion-padding">
+    <div class="article-detail-bg">
+      <ion-img
+        [src]="'https://tygia68.com/wp-content/uploads/2023/08/gia-bitcoin-hom-nay-118-quay-dau-giam-1.png'"
+        [alt]="'Silhouette of mountains'"
+        [style.opacity]="loaded ? 1 : 0"
+        (ionImgWillLoad)="imageWillLoad($event)"
+        (ionImgDidLoad)="loaded = true"></ion-img>
+    </div>
+    <h1 size="large" class="article-detail-title">Giá Bitcoin hôm nay
+      11/4: Halving Bitcoin thúc đẩy lực bán</h1>
+    <ion-label> 4/11/24</ion-label>
+  </div>
+
+</ion-content>

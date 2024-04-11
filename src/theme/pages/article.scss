@@ -1,4 +1,4 @@
-#arrticle {
+.posts-content {
     ion-card {
         box-shadow: none;
         margin-top: 0;
@@ -31,33 +31,30 @@
         --border-radius: 4px;
         height: initial;
     }
-    .posts-content {
-        .title_posts {
+    .title_posts {
+    }
+    .post-featured {
+        color: #ccc;
+        .post-date {
+            padding-bottom: 0 !important;
         }
-        .post-featured {
-            color: #ccc;
-            .post-date {
-                padding-bottom: 0 !important;
-            }
-        }
-        .arrticle-list {
-            .arrticle-item {
-                border-bottom: 1px solid #ccc;
-                margin-bottom: 15px;
-                .content {
-                    border: none;
-                    .arrticle-item-title {
-                        margin-bottom: 10px;
-                        color: var(--color);
-                        text-decoration: none;
-                    }
-                    .arrticle-item-date {
-                        color: #ccc;
-                        margin-top: 15px;
-                    }
+    }
+    .arrticle-list {
+        .arrticle-item {
+            border-bottom: 1px solid #ccc;
+            margin-bottom: 15px;
+            .content {
+                border: none;
+                .arrticle-item-title {
+                    margin-bottom: 10px;
+                    color: var(--color);
+                    text-decoration: none;
+                }
+                .arrticle-item-date {
+                    color: #ccc;
+                    margin-top: 15px;
                 }
             }
         }
     }
 }
-
