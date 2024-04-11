@@ -13,18 +13,32 @@ export const routes: Routes = [
       },
       {
         path: 'article',
-        loadComponent: () =>
-          import('../article/article.page').then((m) => m.ArticlePage),
+        children: [
+          {
+            path: '',
+            loadComponent: () =>
+              import('../article/article.page').then((m) => m.ArticlePage),
+          },
+        ],
       },
       {
         path: 'ads',
-        loadComponent: () =>
-          import('../ads/ads.page').then((m) => m.AdsPage),
+        loadComponent: () => import('../ads/ads.page').then((m) => m.AdsPage),
       },
       {
         path: '',
         redirectTo: '/tygia68',
         pathMatch: 'full',
+      },
+    ],
+  },
+  {
+    path: 'article',
+    children: [
+      {
+        path: ':id',
+        loadComponent: () =>
+          import('../article/components/article-detail/article-detail.component').then((m) => m.ArticleDetailComponent),
       },
     ],
   },

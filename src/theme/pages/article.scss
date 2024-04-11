@@ -1,15 +1,28 @@
 #arrticle {
     ion-card {
         box-shadow: none;
-        ion-list{
-            ion-item{
-                ion-label{
+        margin-top: 0;
+        --background: rgba(227, 227, 227, 0);
+        ion-list {
+            ion-item {
+                --padding-end: 0;
+                --border-color: transparent;
+                --inner-padding-end: 0;
+                --padding-start: 0;
+                --padding-bottom: 15px;
+                ion-label {
                     font-weight: bold;
+                }
+                &::part(native) {
+                    border-color: #ccc;
+                    align-items: initial;
+                    border-bottom: 1px;
                 }
             }
         }
     }
-    ion-card-content ,ion-card-header{
+    ion-card-content,
+    ion-card-header {
         padding-inline-start: 0px;
         padding-inline-end: 0px;
     }
@@ -17,5 +30,34 @@
         --size: 140px;
         --border-radius: 4px;
         height: initial;
-      }
+    }
+    .posts-content {
+        .title_posts {
+        }
+        .post-featured {
+            color: #ccc;
+            .post-date {
+                padding-bottom: 0 !important;
+            }
+        }
+        .arrticle-list {
+            .arrticle-item {
+                border-bottom: 1px solid #ccc;
+                margin-bottom: 15px;
+                .content {
+                    border: none;
+                    .arrticle-item-title {
+                        margin-bottom: 10px;
+                        color: var(--color);
+                        text-decoration: none;
+                    }
+                    .arrticle-item-date {
+                        color: #ccc;
+                        margin-top: 15px;
+                    }
+                }
+            }
+        }
+    }
 }
+

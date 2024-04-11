@@ -5,39 +5,47 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-content [fullscreen]="true">
+  <ion-content [fullscreen]="true" class="posts-content">
     <ion-header collapse="condense">
       <ion-toolbar>
-        <ion-title size="large">Tin tức</ion-title>
+        <ion-title size="large" class="title_posts" color="danger">Tin
+          tức</ion-title>
       </ion-toolbar>
     </ion-header>
-    <ion-card>
+    <ion-card class="post-featured">
       <img alt="Silhouette of mountains"
         src="https://tygia68.com/wp-content/uploads/2023/08/gia-bitcoin-hom-nay-118-quay-dau-giam-1.png" />
       <ion-card-header>
         <ion-card-title>Giá Bitcoin hôm nay 9/4: Khó giảm về 50.000
           USD</ion-card-title>
       </ion-card-header>
-      <ion-card-content>
-        {{formattedDate}}
+      <ion-card-content class="post-date">
+        <!-- {{formattedDate}} -->
       </ion-card-content>
     </ion-card>
     <ion-card>
-      <ion-card-content>
-        <ion-list>
-          <ion-item *ngFor="let item of post">
-            <ion-thumbnail slot="start">
-              <img alt="Silhouette of mountains"
-                [src]="item.images" [alt]="item.title" />
-            </ion-thumbnail>
-            <div class="content">
-              <ion-label class="title">{{ item.title }}</ion-label>
-              <span >{{formattedDate }}</span>
-            </div>
+      <ion-list class="arrticle-list">
+        <ion-item *ngFor="let item of data" lines="inset"
+          class="arrticle-item">
+          <ion-thumbnail slot="start">
+            <img
+              [src]="item.image" [alt]="item.title" />
+          </ion-thumbnail>
+          <div class="content">
+            <a [routerLink]="('/article/1')" class="arrticle-item-title ">
+              <ion-label>{{ item.title
+                }}</ion-label></a>
+            <p class="arrticle-item-date">{{item.created_at | date: 'short'}}</p>
+          </div>
 
-          </ion-item>
-        </ion-list>
-      </ion-card-content>
+        </ion-item>
+      </ion-list>
+      <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)"
+        class="custom-loading">
+        <ion-infinite-scroll-content loadingSpinner="circles"
+          class="custom-loading-content">
+        </ion-infinite-scroll-content>
+      </ion-infinite-scroll>
     </ion-card>
   </ion-content>
 
