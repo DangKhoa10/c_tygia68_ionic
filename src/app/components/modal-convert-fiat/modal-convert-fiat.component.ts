@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { IonicModule, ModalController } from '@ionic/angular';
 
 @Component({
@@ -9,7 +9,7 @@ import { IonicModule, ModalController } from '@ionic/angular';
   templateUrl: './modal-convert-fiat.component.html',
   styleUrls: ['./modal-convert-fiat.component.scss'],
 })
-export class ModalConvertFiatComponent  implements OnInit {
+export class ModalConvertFiatComponent   {
 
   constructor(private modalCtrl: ModalController) {}
 
@@ -21,6 +21,6 @@ export class ModalConvertFiatComponent  implements OnInit {
 
   }
 
-  ngOnInit() {}
+  
 
 }

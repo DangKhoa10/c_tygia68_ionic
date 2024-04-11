@@ -1,0 +1,16 @@
+:host {
+    height: 100%;
+}
+
+#content-modal-char {
+    padding: 0;
+
+    .header-modal-char {
+        padding: 16px 16px 0;
+        height: 70px;
+    }
+
+    section {
+        height: calc(100% - 70px) !important;
+    }
+}

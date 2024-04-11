@@ -44,6 +44,28 @@
     margin-top: 10px;
 }
 
+.mt-12 {
+    margin-top: 12px;
+}
+
+.mt-16 {
+    margin-top: 16px;
+}
+
+.mr-2 {
+    margin-right: 2px;
+}
+
+.mr-4 {
+    margin-right: 4px;
+}
+
+.mr-6 {
+    margin-right: 6px;
+}
+
+
+
 .flex {
     display: flex;
 }
@@ -58,4 +80,8 @@
 
 .justify-end {
     justify-content: end;
+}
+
+.justify-between {
+    justify-content: space-between;
 }

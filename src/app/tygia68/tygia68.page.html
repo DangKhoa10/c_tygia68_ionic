@@ -21,7 +21,110 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  @if(valueChoose() === 'ALL'){ }@else {
+  @if(valueChoose() === 'ALL'){
+  <div class="ion-margin-bottom">
+    <app-exchange
+      [type]="options[1].value"
+      [showTitle]="true"
+      [title]="options[1].label"
+      [limit]="5"
+      [infiniteLoad]="false"
+    ></app-exchange>
+    <div class="ion-text-center">
+      <ion-button
+        shape="round"
+        size="small"
+        (click)="selectValue(options[1].value)"
+        >Xem thêm</ion-button
+      >
+    </div>
+  </div>
+  <div class="ion-margin-bottom">
+    <app-exchange
+      [type]="options[2].value"
+      [showTitle]="true"
+      [title]="options[2].label"
+      [limit]="5"
+      [infiniteLoad]="false"
+    ></app-exchange>
+    <div class="ion-text-center">
+      <ion-button
+        shape="round"
+        size="small"
+        (click)="selectValue(options[2].value)"
+        >Xem thêm</ion-button
+      >
+    </div>
+  </div>
+  <div class="ion-margin-bottom">
+    <app-exchange
+      [type]="options[3].value"
+      [showTitle]="true"
+      [title]="options[3].label"
+      [limit]="5"
+      [infiniteLoad]="false"
+    ></app-exchange>
+    <div class="ion-text-center">
+      <ion-button
+        shape="round"
+        size="small"
+        (click)="selectValue(options[3].value)"
+        >Xem thêm</ion-button
+      >
+    </div>
+  </div>
+  <div class="ion-margin-bottom">
+    <app-exchange
+      [type]="options[4].value"
+      [showTitle]="true"
+      [title]="options[4].label"
+      [limit]="5"
+      [infiniteLoad]="false"
+    ></app-exchange>
+    <div class="ion-text-center">
+      <ion-button
+        shape="round"
+        size="small"
+        (click)="selectValue(options[4].value)"
+        >Xem thêm</ion-button
+      >
+    </div>
+  </div>
+  <div class="ion-margin-bottom">
+    <app-exchange
+      [type]="options[5].value"
+      [showTitle]="true"
+      [title]="options[5].label"
+      [limit]="5"
+      [infiniteLoad]="false"
+    ></app-exchange>
+    <div class="ion-text-center">
+      <ion-button
+        shape="round"
+        size="small"
+        (click)="selectValue(options[5].value)"
+        >Xem thêm</ion-button
+      >
+    </div>
+  </div>
+  <div class="ion-margin-bottom">
+    <app-exchange
+      [type]="options[6].value"
+      [showTitle]="true"
+      [title]="options[6].label"
+      [limit]="5"
+      [infiniteLoad]="false"
+    ></app-exchange>
+    <div class="ion-text-center">
+      <ion-button
+        shape="round"
+        size="small"
+        (click)="selectValue(options[6].value)"
+        >Xem thêm</ion-button
+      >
+    </div>
+  </div>
+  }@else {
   <app-exchange
     [type]="valueChoose()"
     [showTitle]="false"

@@ -3,29 +3,40 @@ import {
   Component,
   Input,
   OnChanges,
+  OnInit,
   SimpleChanges,
   effect,
   inject,
   signal,
 } from '@angular/core';
-import { InfiniteScrollCustomEvent, IonicModule } from '@ionic/angular';
+import {
+  InfiniteScrollCustomEvent,
+  IonicModule,
+  ModalController,
+} from '@ionic/angular';
 import { addIcons } from 'ionicons';
 import { barChart, caretDown, caretUp } from 'ionicons/icons';
 import * as moment from 'moment';
 import {
+  BankModel,
+  ExchangeBankModel,
   ExchangeFieldModel,
+  ExchangeGoldModel,
   QueryExchangeModel,
 } from 'src/app/shared/models/exchange.model';
 import { ExchangeService } from 'src/app/shared/services/exchange.service';
+import { TradingviewComponent } from 'src/app/components/tradingview/tradingview.component';
+import { FlagCurrencyPipe } from 'src/app/shared/pipes/flag-currency.pipe';
+import { IconCurrencyPipe } from 'src/app/shared/pipes/icon-currency.pipe';
 
 @Component({
   selector: 'app-exchange',
   templateUrl: './exchange.component.html',
   styleUrls: ['./exchange.component.scss'],
   standalone: true,
-  imports: [CommonModule, IonicModule],
+  imports: [CommonModule, IonicModule, FlagCurrencyPipe , IconCurrencyPipe],
 })
-export class ExchangeComponent implements OnChanges {
+export class ExchangeComponent implements OnChanges, OnInit {
   @Input() showTitle: boolean = true;
   @Input() type: string;
   @Input() title: string;
@@ -33,35 +44,52 @@ export class ExchangeComponent implements OnChanges {
   @Input() infiniteLoad: boolean = false;
 
   isLoadMore = true;
-  query = signal<QueryExchangeModel>({
-    page: 1,
-  });
+  query = signal<QueryExchangeModel | null>(null);
+  queryBank = signal<QueryExchangeModel | null>(null);
   data: ExchangeFieldModel[] = [];
-
-  cryptoOptions: ['VND', 'USD'];
-
+  dataGold: ExchangeGoldModel[] = [];
+  dataBank: ExchangeBankModel[] = [];
+  cryptoOptions: string[] = ['VND', 'USD'];
+  listBank: BankModel[];
   timeUpdate: string;
   protected exchangeService = inject(ExchangeService);
 
   listenQueryChange = effect(() => {
-    this.exchangeService.ListExchange(this.query()).then((value) => {
-      let { data, pagination } = value;
-      if (pagination.currentPage == pagination.lastPage) {
-        this.isLoadMore = false;
-      }
-      if (pagination.currentPage > 1) {
-        this.data = [...this.data, ...data];
-      } else {
-        this.data = data;
-      }
-    });
+    if (this.query() != null) {
+      this.exchangeService.ListExchange(this.query()!).then((value) => {
+        let { data, pagination } = value;
+        if (pagination.currentPage == pagination.lastPage) {
+          this.isLoadMore = false;
+        }
+        if (pagination.currentPage > 1) {
+          this.data = [...this.data, ...data];
+        } else {
+          this.data = data;
+        }
+      });
+    }
+  });
+  listenQueryBankChange = effect(() => {
+    if (this.queryBank() != null) {
+      this.exchangeService
+        .ListBankPrice(this.queryBank()?.bank_code ?? '', this.queryBank()!)
+        .then((value) => {
+          if (this.limit == 5 && !this.infiniteLoad)
+            this.dataBank = value.splice(0, 5);
+          else this.dataBank = value;
+        });
+    }
   });
 
   getDate() {
     this.timeUpdate = moment().format('DD/MM/yyyy - hh:mm');
   }
-  constructor() {
+
+  constructor(private modalCtrl: ModalController) {
     addIcons({ barChart, caretDown, caretUp });
+  }
+  ngOnInit(): void {
+    this.getBankOption();
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['type']) {
@@ -70,11 +98,9 @@ export class ExchangeComponent implements OnChanges {
   }
 
   handleChangeType() {
-    this.getDate();
-    this.isLoadMore = true;
-    this.data = [];
+    this.resetData();
     if (['MARKET', 'USDT', 'FIAT', 'CRYPTO'].includes(this.type)) {
-      let queryData = {
+      let queryData: QueryExchangeModel = {
         page: 1,
         limit: this.limit,
         client_id: 2,
@@ -91,8 +117,8 @@ export class ExchangeComponent implements OnChanges {
           queryData.type = 'fiat_to_fiat';
           break;
         case 'CRYPTO':
+          queryData.to = this.cryptoOptions[0];
           queryData.type = 'coin_to_fiat';
-          // query.to = this.cryptoOptions[0];
           break;
         default:
           break;
@@ -101,14 +127,57 @@ export class ExchangeComponent implements OnChanges {
     }
 
     if (['BANK'].includes(this.type)) {
+      this.handleBank();
     }
 
     if (['GOLD'].includes(this.type)) {
+      this.getGold();
     }
   }
 
+  resetData() {
+    this.isLoadMore = true;
+    this.data = [];
+    this.dataBank = [];
+    this.dataGold = [];
+    this.getDate();
+  }
+  selectCryptoQuery(option: string) {
+    if (this.query() !== null && this.query()!.to != option) {
+      this.resetData();
+      let queryNew = { ...this.query() };
+      queryNew.to = option;
+      queryNew.page = 1;
+      this.query.set(queryNew);
+    }
+  }
+  selectBankQuery(bankCode: string) {
+    if (this.queryBank() !== null && this.queryBank()!.bank_code != bankCode) {
+      this.resetData();
+      let queryNew = { ...this.queryBank() };
+      queryNew.bank_code = bankCode;
+      queryNew.page = 1;
+      this.queryBank.set(queryNew);
+    }
+  }
+
+  async openChart(from: string, to: string) {
+    if (this.type === 'CRYPTO' && to === 'VND') {
+      to = 'USD';
+    }
+    const modal = await this.modalCtrl.create({
+      component: TradingviewComponent,
+      componentProps: {
+        widgetConfig: {
+          symbol: from + '/' + to,
+        },
+      },
+    });
+    modal.present();
+  }
+
   onIonInfinite(ev: any) {
-    if (this.infiniteLoad && this.isLoadMore) {
+    if (this.infiniteLoad && this.isLoadMore && this.type != 'GOLD') {
       let queryNew = { ...this.query() };
       queryNew.page = queryNew.page! + 1;
       this.query.set(queryNew);
@@ -117,6 +186,41 @@ export class ExchangeComponent implements OnChanges {
       }, 500);
     } else {
       (ev as InfiniteScrollCustomEvent).target.complete();
+    }
+  }
+
+  getBankOption() {
+    this.exchangeService
+      .ListBank({
+        client_id: 2,
+      })
+      .then((value) => {
+        this.listBank = value[0];
+        if (this.type === 'BANK') {
+          this.handleBank();
+        }
+      });
+  }
+
+  getGold() {
+    this.exchangeService
+      .ListGold({
+        client_id: 2,
+      })
+      .then((value) => {
+        if (this.limit == 5 && !this.infiniteLoad)
+          this.dataGold = value.splice(0, 5);
+        else this.dataGold = value;
+      });
+  }
+
+  handleBank() {
+    if (this.listBank && this.listBank.length > 0) {
+      let queryData: QueryExchangeModel = {
+        client_id: 2,
+      };
+      queryData.bank_code = this.listBank[0].code_bank;
+      this.queryBank.set(queryData);
     }
   }
 }

@@ -26,10 +26,35 @@ export interface ExchangeFieldModel {
   meta: any;
 }
 
+export interface ExchangeGoldModel {
+  buyChange: number;
+  buyChangePercent: string;
+  buyingPrice: number;
+  code: number;
+  dateTime: number;
+  name: number;
+  sellChange: number;
+  sellChangePercent: number;
+  sellingPrice: number;
+}
+export interface BankModel {
+  bank: string;
+  code_bank: string;
+}
+
+export interface ExchangeBankModel {
+  buy_CK: string;
+  buy_TM: string;
+  exchange_name: string;
+  sell_CK: string;
+  sell_TM: string;
+}
 export interface QueryExchangeModel {
   page?: number;
   limit?: number;
   sort?: string;
   client_id?: number;
   type?: string;
+  to?: string;
+  bank_code?: string;
 }
