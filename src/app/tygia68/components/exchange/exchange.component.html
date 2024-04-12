@@ -61,6 +61,11 @@
       }
     </ion-grid>
   </div>
+  @if(isLoading){
+  <div class="exchange-loading">
+    <ion-spinner></ion-spinner>
+  </div>
+  }@else {
   <ion-grid class="exchange-table">
     @if(['MARKET', 'FIAT', 'USDT'].includes(type)){
     <ion-row *ngFor="let item of data" class="exchange-table-row">
@@ -138,9 +143,15 @@
     </ion-row>
     }@if(['CRYPTO'].includes(type)){
     <ion-row *ngFor="let item of data" class="exchange-table-row">
-      <ion-col size="4" class="ion-text-start flex items-center">{{
-        item.from + "/" + item.to
-      }}</ion-col>
+      <ion-col size="4" class="ion-text-start flex items-center">
+        <ion-img
+          class="mr-4"
+          [src]="item.from | iconCurrency : 'URL'"
+        ></ion-img>
+        <span>
+          {{ item.from + "/" + item.to }}
+        </span></ion-col
+      >
       <ion-col size="6" class="ion-text-end">
         <div>
           {{ item.buy | number }}
@@ -179,9 +190,9 @@
     </ion-row>
     } @if(['GOLD'].includes(type)){
     <ion-row *ngFor="let item of dataGold" class="exchange-table-row">
-      <ion-col class="ion-text-start flex items-center">{{
-        item.name
-      }}</ion-col>
+      <ion-col class="ion-text-start flex items-center">
+        <span>{{ item.name }}</span></ion-col
+      >
       <ion-col class="ion-text-end">
         <div>
           {{ item.buyingPrice | number }}
@@ -241,9 +252,13 @@
     </ion-row>
     } @if(['BANK'].includes(type)){
     <ion-row *ngFor="let item of dataBank" class="exchange-table-row">
-      <ion-col class="ion-text-start flex items-center">{{
-        item.exchange_name
-      }}</ion-col>
+      <ion-col class="ion-text-start flex items-center">
+        <ion-img
+          class="mr-4"
+          [src]="item.exchange_name.slice(0, 3) | iconCurrency"
+        ></ion-img>
+        <span class="truncate">{{ item.exchange_name }}</span></ion-col
+      >
       <ion-col class="justify-center flex items-center">
         <div>
           {{ item.buy_TM }}
@@ -262,9 +277,18 @@
     </ion-row>
     }
   </ion-grid>
-  @if(infiniteLoad && isLoadMore && !['GOLD', 'BANK'].includes(type)){
+  } @if(infiniteLoad && isLoadMore && !isLoading && !['GOLD',
+  'BANK'].includes(type)){
   <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
   </ion-infinite-scroll>
+  }@else{} @if(!showTitle){
+  <div class="exchange-search">
+    <div class="ion-activatable ripple-parent circle">
+      <ion-icon name="search"></ion-icon>
+      <ion-ripple-effect>
+      </ion-ripple-effect>
+    </div>
+  </div>
   }@else{}
 </div>

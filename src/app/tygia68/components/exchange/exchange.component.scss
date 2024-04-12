@@ -44,6 +44,40 @@
     }
 }
 
+.exchange-search {
+    position: fixed;
+    bottom: 16px;
+    right: 16px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background-color: var(--ion-color-primary);
+    overflow: hidden;
+
+
+    .ripple-parent {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+
+        ion-icon {
+            color: #ffffff;
+            width: 24px;
+            height: 24px;
+        }
+    }
+}
+
+.exchange-loading {
+    width: 100%;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .exchange-table {
     padding: 0;
 
@@ -73,6 +107,8 @@
         ion-img {
             width: 18px;
             height: 18px;
+            border-radius: 50%;
+            overflow: hidden;
         }
 
         &:last-child {
