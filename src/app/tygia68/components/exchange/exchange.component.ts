@@ -15,7 +15,7 @@ import {
   ModalController,
 } from '@ionic/angular';
 import { addIcons } from 'ionicons';
-import { barChart, caretDown, caretUp } from 'ionicons/icons';
+import { barChart, caretDown, caretUp, search } from 'ionicons/icons';
 import * as moment from 'moment';
 import {
   BankModel,
@@ -34,7 +34,7 @@ import { IconCurrencyPipe } from 'src/app/shared/pipes/icon-currency.pipe';
   templateUrl: './exchange.component.html',
   styleUrls: ['./exchange.component.scss'],
   standalone: true,
-  imports: [CommonModule, IonicModule, FlagCurrencyPipe , IconCurrencyPipe],
+  imports: [CommonModule, IonicModule, FlagCurrencyPipe, IconCurrencyPipe],
 })
 export class ExchangeComponent implements OnChanges, OnInit {
   @Input() showTitle: boolean = true;
@@ -43,6 +43,7 @@ export class ExchangeComponent implements OnChanges, OnInit {
   @Input() limit: number = 5;
   @Input() infiniteLoad: boolean = false;
 
+  isLoading = false;
   isLoadMore = true;
   query = signal<QueryExchangeModel | null>(null);
   queryBank = signal<QueryExchangeModel | null>(null);
@@ -56,17 +57,24 @@ export class ExchangeComponent implements OnChanges, OnInit {
 
   listenQueryChange = effect(() => {
     if (this.query() != null) {
-      this.exchangeService.ListExchange(this.query()!).then((value) => {
-        let { data, pagination } = value;
-        if (pagination.currentPage == pagination.lastPage) {
-          this.isLoadMore = false;
-        }
-        if (pagination.currentPage > 1) {
-          this.data = [...this.data, ...data];
-        } else {
-          this.data = data;
-        }
-      });
+      this.exchangeService
+        .ListExchange(this.query()!)
+        .then((value) => {
+          let { data, pagination } = value;
+          if (pagination.currentPage == pagination.lastPage) {
+            this.isLoadMore = false;
+          }
+          if (pagination.currentPage > 1) {
+            this.data = [...this.data, ...data];
+          } else {
+            this.data = data;
+          }
+        })
+        .finally(() => {
+          setTimeout(()=>{
+            this.isLoading = false
+          },500)
+        });
     }
   });
   listenQueryBankChange = effect(() => {
@@ -77,6 +85,11 @@ export class ExchangeComponent implements OnChanges, OnInit {
           if (this.limit == 5 && !this.infiniteLoad)
             this.dataBank = value.splice(0, 5);
           else this.dataBank = value;
+        })
+        .finally(() => {
+          setTimeout(()=>{
+            this.isLoading = false
+          },500)
         });
     }
   });
@@ -86,7 +99,7 @@ export class ExchangeComponent implements OnChanges, OnInit {
   }
 
   constructor(private modalCtrl: ModalController) {
-    addIcons({ barChart, caretDown, caretUp });
+    addIcons({ barChart, caretDown, caretUp , search});
   }
   ngOnInit(): void {
     this.getBankOption();
@@ -99,6 +112,7 @@ export class ExchangeComponent implements OnChanges, OnInit {
 
   handleChangeType() {
     this.resetData();
+    this.isLoading = true;
     if (['MARKET', 'USDT', 'FIAT', 'CRYPTO'].includes(this.type)) {
       let queryData: QueryExchangeModel = {
         page: 1,
@@ -211,6 +225,11 @@ export class ExchangeComponent implements OnChanges, OnInit {
         if (this.limit == 5 && !this.infiniteLoad)
           this.dataGold = value.splice(0, 5);
         else this.dataGold = value;
+      })
+      .finally(() => {
+        setTimeout(()=>{
+          this.isLoading = false
+        },500)
       });
   }
 
