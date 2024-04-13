@@ -4,7 +4,19 @@
       'exchange-fixed': !showTitle
     }"
   >
-    @if(!showTitle){
+    @if(!showTitle){ @if(showSearch && ['MARKET', 'FIAT', 'USDT' , 'CRYPTO' ,
+    'BANK'].includes(type)){
+    <div>
+      <ion-searchbar
+        [debounce]="300"
+        show-clear-button="focus"
+        placeholder="Tìm kiếm"
+        show-cancel-button="focus"
+        (ionInput)="search($event)"
+        (ionCancel)="cancelSearch()"
+      ></ion-searchbar>
+    </div>
+    }
     <div class="exchange-tab">
       @if(type === 'CRYPTO'){
       <ion-chip
@@ -26,7 +38,9 @@
       >
       }
     </div>
+
     }@else{}
+
     <div class="exchange-header">
       <h5>
         @if(showTitle){
@@ -255,13 +269,15 @@
       </ion-col>
     </ion-row>
     } @if(['BANK'].includes(type)){
-    <ion-row *ngFor="let item of dataBank" class="exchange-table-row">
-      <ion-col class="ion-text-start flex items-center">
+    <ion-row *ngFor="let item of dataBankSearch" class="exchange-table-row">
+      <ion-col size="3" class="ion-text-start flex items-center">
         <ion-img
           class="mr-4"
           [src]="item.exchange_name.slice(0, 3) | iconCurrency"
         ></ion-img>
-        <span class="truncate">{{ item.exchange_name }}</span></ion-col
+        <span class="truncate text-max-width">{{
+          item.exchange_name
+        }}</span></ion-col
       >
       <ion-col class="justify-center flex items-center">
         <div>
@@ -286,12 +302,12 @@
   <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
   </ion-infinite-scroll>
-  }@else{} @if(!showTitle){
+  }@else{} @if(!showTitle && ['MARKET', 'FIAT', 'USDT' , 'CRYPTO' ,
+  'BANK'].includes(type)){
   <div class="exchange-search">
-    <div class="ion-activatable ripple-parent circle">
+    <div class="ion-activatable ripple-parent circle" (click)="handleSearch()">
       <ion-icon name="search"></ion-icon>
-      <ion-ripple-effect>
-      </ion-ripple-effect>
+      <ion-ripple-effect> </ion-ripple-effect>
     </div>
   </div>
   }@else{}
