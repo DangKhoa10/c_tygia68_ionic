@@ -5,6 +5,9 @@ import { IonicModule, ModalController } from '@ionic/angular';
 import { addIcons } from 'ionicons';
 import { calculator, cash, diamond, people } from 'ionicons/icons';
 import { ModalConvertFiatComponent } from '../components/modal-convert-fiat/modal-convert-fiat.component';
+import { ModalConvertGoldComponent } from '../components/modal-convert-gold/modal-convert-gold.component';
+import { ModalConvertGoldWorldComponent } from '../components/modal-convert-gold-world/modal-convert-gold-world.component';
+import { ModalGoldAreaComponent } from '../components/modal-gold-area/modal-gold-area.component';
 
 @Component({
   selector: 'app-menu',
@@ -75,18 +78,28 @@ export class MenuComponent implements OnInit {
       case 'SOCIAL':
         break;
       case 'GOLD':
+        const modalGold = await this.modalCtrl.create({
+          component: ModalConvertGoldComponent,
+        });
+        modalGold.present();
         break;
       case 'GOLD_WORLD':
+        const modalGoldW = await this.modalCtrl.create({
+          component: ModalConvertGoldWorldComponent,
+        });
+        modalGoldW.present();
         break;
       case 'GOLD_REGION':
+        const modalGoldR = await this.modalCtrl.create({
+          component: ModalGoldAreaComponent,
+        });
+        modalGoldR.present();
         break;
       case 'CONVERT_FIAT':
         const modal = await this.modalCtrl.create({
           component: ModalConvertFiatComponent,
         });
         modal.present();
-        const { data, role } = await modal.onWillDismiss();
-
         break;
       default:
         break;
