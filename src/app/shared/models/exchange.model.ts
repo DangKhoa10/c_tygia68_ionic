@@ -56,5 +56,6 @@ export interface QueryExchangeModel {
   client_id?: number;
   type?: string;
   to?: string;
+  search?: string
   bank_code?: string;
 }

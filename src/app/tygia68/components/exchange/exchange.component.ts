@@ -53,6 +53,8 @@ export class ExchangeComponent implements OnChanges, OnInit {
   cryptoOptions: string[] = ['VND', 'USD'];
   listBank: BankModel[];
   timeUpdate: string;
+  showSearch: boolean = false;
+  dataBankSearch: ExchangeBankModel[] = [];
   protected exchangeService = inject(ExchangeService);
 
   listenQueryChange = effect(() => {
@@ -71,9 +73,9 @@ export class ExchangeComponent implements OnChanges, OnInit {
           }
         })
         .finally(() => {
-          setTimeout(()=>{
-            this.isLoading = false
-          },500)
+          setTimeout(() => {
+            this.isLoading = false;
+          }, 500);
         });
     }
   });
@@ -82,14 +84,17 @@ export class ExchangeComponent implements OnChanges, OnInit {
       this.exchangeService
         .ListBankPrice(this.queryBank()?.bank_code ?? '', this.queryBank()!)
         .then((value) => {
-          if (this.limit == 5 && !this.infiniteLoad)
+          if (this.limit == 5 && !this.infiniteLoad) {
             this.dataBank = value.splice(0, 5);
-          else this.dataBank = value;
+          } else {
+            this.dataBank = value;
+          }
+          this.dataBankSearch = [...this.dataBank];
         })
         .finally(() => {
-          setTimeout(()=>{
-            this.isLoading = false
-          },500)
+          setTimeout(() => {
+            this.isLoading = false;
+          }, 500);
         });
     }
   });
@@ -99,7 +104,7 @@ export class ExchangeComponent implements OnChanges, OnInit {
   }
 
   constructor(private modalCtrl: ModalController) {
-    addIcons({ barChart, caretDown, caretUp , search});
+    addIcons({ barChart, caretDown, caretUp, search });
   }
   ngOnInit(): void {
     this.getBankOption();
@@ -112,6 +117,7 @@ export class ExchangeComponent implements OnChanges, OnInit {
 
   handleChangeType() {
     this.resetData();
+    this.showSearch = false;
     this.isLoading = true;
     if (['MARKET', 'USDT', 'FIAT', 'CRYPTO'].includes(this.type)) {
       let queryData: QueryExchangeModel = {
@@ -149,10 +155,37 @@ export class ExchangeComponent implements OnChanges, OnInit {
     }
   }
 
+  cancelSearch() {
+    this.showSearch = false;
+  }
+
+  search(event: any) {
+    let value = event.detail.value;
+    switch (this.type) {
+      case 'MARKET':
+      case 'USDT':
+      case 'FIAT':
+      case 'CRYPTO':
+        this.resetData();
+        let queryData = { ...this.query() };
+        queryData.search = value;
+        queryData.page = 1;
+        this.query.set(queryData);
+        break;
+      case 'BANK':
+        this.dataBankSearch = this.dataBank.filter((x) =>
+          x.exchange_name.toLowerCase().includes(value.toLowerCase())
+        );
+        break;
+      default:
+        break;
+    }
+  }
   resetData() {
     this.isLoadMore = true;
     this.data = [];
     this.dataBank = [];
+    this.dataBankSearch = [];
     this.dataGold = [];
     this.getDate();
   }
@@ -227,9 +260,9 @@ export class ExchangeComponent implements OnChanges, OnInit {
         else this.dataGold = value;
       })
       .finally(() => {
-        setTimeout(()=>{
-          this.isLoading = false
-        },500)
+        setTimeout(() => {
+          this.isLoading = false;
+        }, 500);
       });
   }
 
@@ -241,5 +274,9 @@ export class ExchangeComponent implements OnChanges, OnInit {
       queryData.bank_code = this.listBank[0].code_bank;
       this.queryBank.set(queryData);
     }
+  }
+
+  handleSearch() {
+    this.showSearch = !this.showSearch;
   }
 }
