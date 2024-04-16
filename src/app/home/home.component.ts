@@ -3,10 +3,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { ExchangeComponent } from './components/exchange/exchange.component';
+import { HeaderComponent } from '../shared/components/header/header.component';
 
 @Component({
   selector: 'app-home',
-  imports: [IonicModule, CommonModule, FormsModule, ExchangeComponent],
+  imports: [IonicModule, CommonModule, FormsModule, ExchangeComponent,HeaderComponent],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
   standalone: true,
