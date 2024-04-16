@@ -25,6 +25,7 @@ export class MenuComponent implements OnInit {
       name: 'Cộng đồng tỷ giá 68',
       icon: 'people',
       action: 'SOCIAL',
+      path:'community'
     },
     {
       id: 1,

@@ -7,6 +7,11 @@ export const routes: Routes = [
     component: TabsPage,
     children: [
       {
+        path: 'home',
+        loadComponent: () =>
+          import('../home/home.component').then((m) => m.HomeComponent),
+      },
+      {
         path: 'tygia68',
         loadComponent: () =>
           import('../tygia68/tygia68.page').then((m) => m.Tygia68Page),
@@ -44,7 +49,7 @@ export const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'tabs/tygia68',
+    redirectTo: 'tabs/home',
     pathMatch: 'full',
   },
 ];

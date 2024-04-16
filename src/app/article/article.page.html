@@ -12,13 +12,13 @@
     </ion-toolbar>
   </ion-header>
   <ion-card class="post-featured">
-    <img alt="Silhouette of mountains"
-      src="https://tygia68.com/wp-content/uploads/2023/08/gia-bitcoin-hom-nay-118-quay-dau-giam-1.png" />
+    <img [alt]="data_first().title" 
+       [lazyLoad]="data_first().image"  />
     <ion-card-header>
-      <ion-card-title>Giá Bitcoin hôm nay 9/4: Khó giảm về 50.000
-        USD</ion-card-title>
+      <ion-card-title>{{data_first().title}}</ion-card-title>
     </ion-card-header>
-    <ion-card-content class="post-date">4/11/24, 8:30 AM
+    <ion-card-content class="post-date">{{data_first().created_at | date:
+      'short'}}
     </ion-card-content>
   </ion-card>
   <div class="wrapper_article">

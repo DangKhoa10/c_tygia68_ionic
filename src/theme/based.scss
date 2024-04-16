@@ -1,3 +1,7 @@
+html {
+    --ion-font-family: "IBM Plex Sans", sans-serif !important;
+    --bg-home: #f3f3f3;
+}
 .truncate {
     overflow: hidden;
     white-space: nowrap;
@@ -63,8 +67,6 @@
 .mr-6 {
     margin-right: 6px;
 }
-
-
 
 .flex {
     display: flex;

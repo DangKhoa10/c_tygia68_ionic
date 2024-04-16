@@ -1,6 +1,6 @@
 export interface ArticleModel {
   code: string;
-  created_at: Date;
+  created_at: string;
   description: string;
   id: number;
   image: string;
