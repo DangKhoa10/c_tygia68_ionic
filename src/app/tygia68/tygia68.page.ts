@@ -59,7 +59,6 @@ export class Tygia68Page {
     },
   ];
   title: string;
-
   listenValueChange = effect(() => {
     this.title =
       this.options.find((x) => x.value === this.valueChoose())?.label ?? '';

@@ -1,0 +1,59 @@
+<!-- 
+<ion-header class="ion-no-border" [translucent]="true">
+  <ion-toolbar class="ion-padding">
+    <ion-icon
+      slot="end"
+      color="light"
+      size="small"
+      name="notifications"></ion-icon>
+  </ion-toolbar>
+  <div class="exchange-select">
+    <ion-select
+      interface="popover"
+      label-placement="floating"
+      [(ngModel)]="valueChoose">
+      <ion-select-option *ngFor="let item of options"
+        [value]="item.value">{{item.label}}</ion-select-option>
+    </ion-select>
+  </div>
+</ion-header> -->
+<ion-content class="home_content ">
+  <div class="bg ">
+    <h1 class="heading ">Xem tỷ giá ngoại tệ<br
+        class="d-block d-md-none"> trực tuyến tại
+      <span class="text-primary">Tỷ giá 68</span></h1>
+    <div class="wrapper ">
+      <ion-list class="exchange-list">
+        <ion-item class="exchange-item" *ngFor="let item of options"
+          [ngClass]="{
+          active: valueChoose()== item.value   
+        }" (click)="selectValue(item.value)">
+          <ion-label>{{item.label}}</ion-label>
+        </ion-item>
+      </ion-list>
+      <app-exchange
+        [type]="valueChoose()"
+        [showTitle]="false"
+        [title]="title"
+        [limit]="20"
+        [infiniteLoad]="true"></app-exchange>
+    </div>
+    <div class="wrapper ">
+      <ion-list class="exchange-list">
+        <ion-item class="exchange-item" *ngFor="let item of options1"
+          [ngClass]="{
+          active: valueChoose_2()== item.value   
+        }" (click)="handleChang(item.value)">
+          <ion-label>{{item.label}}</ion-label>
+        </ion-item>
+      </ion-list>
+      <app-exchange
+        [type]="valueChoose_2()"
+        [showTitle]="false"
+        [title]="title"
+        [limit]="20"
+        [infiniteLoad]="true"></app-exchange>
+    </div>
+  </div>
+
+</ion-content>
