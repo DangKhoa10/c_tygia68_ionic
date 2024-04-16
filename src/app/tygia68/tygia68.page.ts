@@ -7,24 +7,19 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import {
-  IonContent,
-  IonHeader,
-  IonTitle,
-  IonToolbar,
-} from '@ionic/angular/standalone';
+
 import { IonicModule } from '@ionic/angular';
 import { addIcons } from 'ionicons';
 import { notifications } from 'ionicons/icons';
 import { ExchangeComponent } from './components/exchange/exchange.component';
-import { values } from 'lodash';
+import { ExchangeBiexceComponent } from '../components/exchange-biexce/exchange-biexce.component';
 
 @Component({
   selector: 'app-tygia68',
   templateUrl: './tygia68.page.html',
   styleUrls: ['./tygia68.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule, ExchangeComponent],
+  imports: [IonicModule, CommonModule, FormsModule, ExchangeComponent, ExchangeBiexceComponent],
 })
 export class Tygia68Page {
   valueChoose = signal<string>('ALL');

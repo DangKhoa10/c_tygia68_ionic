@@ -1,4 +1,4 @@
-<div class="exchange-block">
+<div class="exchange-block ion-padding">
   <div>
     @if(isSearch()){
     <div>
@@ -12,7 +12,7 @@
     </div>
     }@else{}
     <ion-grid class="exchange-table">
-      <ion-row class="sticky-top exchange-table-header">
+      <ion-row class="exchange-table-header">
         <ion-col class="ion-text-start">Tên</ion-col>
         <ion-col class="ion-text-end">Mua</ion-col>
         <ion-col class="ion-text-end">Bán</ion-col>
@@ -22,33 +22,33 @@
       </ion-row>
     </ion-grid>
   </div>
-  @if(isLoading()){
+  @if(isFirstLoading()){
   <div class="exchange-loading">
     <ion-spinner></ion-spinner>
   </div>
   }@else {
   <ion-grid class="exchange-table">
-    <ion-row *ngFor="let item of data()" class="exchange-table-row">
+    <ion-row *ngFor="let item of dataSearch()" class="exchange-table-row">
       <ion-col class="ion-text-start flex items-center">
         @if(isShowImage()){
         <ion-img
           class="mr-4"
-          [src]="item.baseCurrency | iconCurrency : 'URL'"
+          [src]="item.baseCurrency | iconCurrency"
         ></ion-img>
         }
         <span>
           {{ item.baseCurrency + "/" + item.targetCurrency }}
         </span>
       </ion-col>
-      <ion-col class="ion-text-end">
-        <div>
+      <ion-col class="ion-text-end flex flex-column justify-center">
+        <ion-text [color]="item.changePriceBuy >= 0 ? 'success' : 'danger'">
           {{ item.priceBuy | number }}
-        </div>
+        </ion-text>
         <div class="flex mt-4 justify-end items-center">
           <ion-icon
             class="mini"
             size="small"
-            color="success"
+            [color]="item.changePriceBuy >= 0 ? 'success' : 'danger'"
             [name]="item.changePriceBuy >= 0 ? 'caret-up' : 'caret-down'"
           ></ion-icon>
           <ion-text
@@ -59,15 +59,15 @@
           </ion-text>
         </div>
       </ion-col>
-      <ion-col class="ion-text-end">
-        <div>
+      <ion-col class="ion-text-end flex flex-column justify-center">
+        <ion-text [color]="item.changePriceBuy >= 0 ? 'success' : 'danger'">
           {{ item.priceSell | number }}
-        </div>
+        </ion-text>
         <div class="flex mt-4 justify-end items-center">
           <ion-icon
             class="mini"
             size="small"
-            color="success"
+            [color]="item.changePriceBuy >= 0 ? 'success' : 'danger'"
             [name]="item.changePriceSell >= 0 ? 'caret-up' : 'caret-down'"
           ></ion-icon>
           <ion-text
@@ -84,7 +84,7 @@
         class="flex justify-end items-center"
         (click)="openChart(item.baseCurrency, item.targetCurrency)"
       >
-        <ion-icon color="secondary" name="bar-chart"></ion-icon>
+        <ion-icon color="primary" name="bar-chart"></ion-icon>
       </ion-col>
       }
     </ion-row>

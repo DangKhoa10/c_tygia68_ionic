@@ -23,6 +23,9 @@
 <ion-content [fullscreen]="true">
   @if(valueChoose() === 'ALL'){
   <div class="ion-margin-bottom">
+    <app-exchange-biexce [type]="'MARKET'"></app-exchange-biexce>
+  </div>
+  <!-- <div class="ion-margin-bottom">
     <app-exchange
       [type]="options[1].value"
       [showTitle]="true"
@@ -123,7 +126,7 @@
         >Xem thêm</ion-button
       >
     </div>
-  </div>
+  </div> -->
   }@else {
   <app-exchange
     [type]="valueChoose()"

@@ -25,9 +25,9 @@ import { ExchangeService } from 'src/app/shared/services/exchange.service';
 import { Socket } from 'ngx-socket-io';
 
 @Component({
+  standalone: true,
   selector: 'app-exchange-biexce',
   templateUrl: './exchange-biexce.component.html',
-  standalone: true,
   styleUrls: ['./exchange-biexce.component.scss'],
   imports: [IonicModule, CommonModule, IconCurrencyPipe, PaginationComponent],
 })
@@ -35,10 +35,12 @@ export class ExchangeBiexceComponent implements OnInit, OnChanges, OnDestroy {
   @Input() type: string;
 
   protected isLoading = signal<boolean>(false);
+  protected isFirstLoading = signal<boolean>(true);
   protected isShowChart = signal<boolean>(false);
   protected isShowImage = signal<boolean>(false);
   protected isSearch = signal<boolean>(false);
   protected data = signal<ExchangeBiexceFieldModel[]>([]);
+  protected dataSearch = signal<ExchangeBiexceFieldModel[]>([]);
   protected meta = signal<PaginationBiexceModel | null>(null);
   querySub: BehaviorSubject<QueryExchangeModel | null> =
     new BehaviorSubject<QueryExchangeModel | null>(null);
@@ -68,15 +70,17 @@ export class ExchangeBiexceComponent implements OnInit, OnChanges, OnDestroy {
   ];
 
   handlerSocketExchange(items: ExchangeBiexceFieldModel[]) {
-    if (this.data && this.data.length > 0) {
+    if (this.dataSearch() && this.dataSearch().length > 0) {
       for (const item of items) {
-        const index = this.data().findIndex(
+        const index = this.dataSearch().findIndex(
           (c) =>
             c.baseCurrency === item.baseCurrency &&
             c.targetCurrency === item.targetCurrency
         );
         if (index >= 0) {
-          this.data()[index] = item;
+          let dataChange = [...this.dataSearch()];
+          dataChange[index] = item;
+          this.dataSearch.set(dataChange);
         } else {
           // this.collections.push(item)
         }
@@ -181,11 +185,14 @@ export class ExchangeBiexceComponent implements OnInit, OnChanges, OnDestroy {
     this.listExchange()?.subscribe({
       next: (result) => {
         this.data.set([...result.data]);
+        this.dataSearch.set([...result.data]);
         this.meta.set(result.meta ? { ...result.meta } : null);
         this.isLoading.set(false);
+        this.isFirstLoading.set(false);
       },
       error: (error) => {
         this.isLoading.set(false);
+        this.isFirstLoading.set(false);
       },
     });
 
@@ -203,7 +210,10 @@ export class ExchangeBiexceComponent implements OnInit, OnChanges, OnDestroy {
             data: [],
             meta: null,
           });
-        this.isLoading.set(true);
+        if (this.isFirstLoading()) {
+        } else {
+          this.isLoading.set(true);
+        }
         return from(this.exchangeService.ListExchangeBiexce(query)).pipe(
           catchError((error) => {
             return of({
@@ -218,11 +228,15 @@ export class ExchangeBiexceComponent implements OnInit, OnChanges, OnDestroy {
 
   search(event: any) {
     let value = event.detail.value;
-    this.querySub.next({
-      ...this.querySub.value,
-      page: 1,
-      search: value,
-    });
+    // this.querySub.next({
+    //   ...this.querySub.value,
+    //   page: 1,
+    //   search: value,
+    // });
+    let searchs = this.data().filter((x) =>
+      x.name.toLowerCase().includes(value.toLowerCase())
+    );
+    this.dataSearch.set(searchs);
   }
 
   pageChanged(page: number) {

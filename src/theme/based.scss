@@ -72,6 +72,10 @@ html {
     display: flex;
 }
 
+.flex-column {
+    flex-direction: column;
+}
+
 .items-center {
     align-items: center;
 }

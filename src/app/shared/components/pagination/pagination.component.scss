@@ -15,6 +15,7 @@
         font-weight: 500;
         color: #727C8D;
         cursor: pointer;
+        border-radius: 8px;
     
         &.disabled{
             opacity: 0.3;
@@ -27,8 +28,8 @@
         }
     
         &.active{
-            background-color: #ffcd04;
-            color: #374151;
+            background-color: var(--ion-color-primary);
+            color: #ffffff;
             font-weight: 600;
         }
     }

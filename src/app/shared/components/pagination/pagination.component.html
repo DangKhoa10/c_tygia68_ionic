@@ -1,6 +1,6 @@
 <ul class="pagination" id="pagination">
   <li
-    class="page-item"
+    class="page-item flex justify-center items-center"
     [ngClass]="{ disabled: page <= 1 }"
     (click)="previousPage()"
   >
@@ -17,22 +17,20 @@
       />
     </svg>
   </li>
-  @for (value of pages; track $index) { 
-    @if(value === -1){
-        <li class="page-item">...</li>
-    }@else {
-    <li
-        class="page-item"
-        [ngClass]="{ active: page === value }"
-        (click)="selectedPage(value)"
-    >
-        {{ value }}
-    </li>
-    } 
-    }
-
+  @for (value of pages; track $index) { @if(value === -1){
+  <li class="page-item">...</li>
+  }@else {
   <li
     class="page-item"
+    [ngClass]="{ active: page === value }"
+    (click)="selectedPage(value)"
+  >
+    {{ value }}
+  </li>
+  } }
+
+  <li
+    class="page-item flex justify-center items-center"
     [ngClass]="{ disabled: page >= pageCount }"
     (click)="nextPage()"
   >

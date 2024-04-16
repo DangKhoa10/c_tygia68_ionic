@@ -65,8 +65,12 @@ html.dark {
 
 
   --shadow-color: rgba(255, 255, 255, 0.4);
-  --border-table-color: #434f5e;
-  --bg-home:#14181e;
+  --bg-home: #14181e;
+
+  //table
+  --border-table-color: #6B7280;
+  --table-header-bg-color: #1F242E;
+  --table-body-bg-color: #38404C;
 }
 
 /*
