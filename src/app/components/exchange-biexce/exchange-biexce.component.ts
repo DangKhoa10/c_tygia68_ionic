@@ -106,7 +106,7 @@ export class ExchangeBiexceComponent implements OnInit, OnChanges, OnDestroy {
     switch (this.type) {
       case 'GOLD':
         this.isShowChart.set(false);
-        this.isSearch.set(false);
+        this.isSearch.set(true);
         this.isShowImage.set(true);
         this.querySub.next({
           limit: 10,
