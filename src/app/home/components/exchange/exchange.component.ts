@@ -31,13 +31,18 @@ import { FlagCurrencyPipe } from 'src/app/shared/pipes/flag-currency.pipe';
 import { IconCurrencyPipe } from 'src/app/shared/pipes/icon-currency.pipe';
 import { PaginationComponent } from 'src/app/shared/components/pagination/pagination.component';
 
-
 @Component({
   selector: 'app-exchange',
   templateUrl: './exchange.component.html',
   styleUrls: ['./exchange.component.scss'],
   standalone: true,
-  imports: [CommonModule, IonicModule, FlagCurrencyPipe, IconCurrencyPipe,PaginationComponent],
+  imports: [
+    CommonModule,
+    IonicModule,
+    FlagCurrencyPipe,
+    IconCurrencyPipe,
+    PaginationComponent,
+  ],
 })
 export class ExchangeComponent implements OnChanges, OnInit {
   @Input() showTitle: boolean = true;
@@ -45,7 +50,7 @@ export class ExchangeComponent implements OnChanges, OnInit {
   @Input() type_2: string;
   @Input() title: string;
   @Input() title_2: string;
-  @Input() limit: number = 5;
+  @Input() limit: number = 20;
   @Input() infiniteLoad: boolean = false;
 
   isLoading = false;
@@ -56,6 +61,7 @@ export class ExchangeComponent implements OnChanges, OnInit {
   dataGold: ExchangeGoldModel[] = [];
   dataBank: ExchangeBankModel[] = [];
   cryptoOptions: string[] = ['VND', 'USD'];
+  GoldOptions: string[] = ['Hà Nội', 'Hồ Chí Minh','Biên Hòa', 'Đà Nẵng','Miền Tây'];
   listBank: BankModel[];
   timeUpdate: string;
   showSearch: boolean = false;
@@ -74,11 +80,7 @@ export class ExchangeComponent implements OnChanges, OnInit {
           if (pagination.currentPage == pagination.lastPage) {
             this.isLoadMore = false;
           }
-          if (pagination.currentPage > 1) {
-            this.data = [...this.data, ...data];
-          } else {
-            this.data = data;
-          }
+          this.data = data;
         })
         .finally(() => {
           setTimeout(() => {
@@ -287,5 +289,12 @@ export class ExchangeComponent implements OnChanges, OnInit {
 
   handleSearch() {
     this.showSearch = !this.showSearch;
+  }
+  pageChanged(page: number) {
+    console.log(page);
+    let queryN = { ...this.query() };
+    queryN.page = queryN.page! + 1;
+    this.query.set(queryN);
+
   }
 }

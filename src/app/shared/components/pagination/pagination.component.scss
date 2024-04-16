@@ -1,0 +1,35 @@
+
+#pagination{
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    .page-item{
+        user-select: none;
+        width: 40px;
+        height: 40px;
+        margin: 0 4px;
+        line-height: 40px;
+        text-align: center;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+        color: #727C8D;
+        cursor: pointer;
+    
+        &.disabled{
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+    
+        &:hover{
+            background-color: #F9FAFB;
+            color: #1A1D21;
+        }
+    
+        &.active{
+            background-color: #ffcd04;
+            color: #374151;
+            font-weight: 600;
+        }
+    }
+}

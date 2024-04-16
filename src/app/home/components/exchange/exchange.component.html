@@ -8,8 +8,7 @@
         show-clear-button="focus"
         placeholder="Tìm kiếm"
         show-cancel-button="focus"
-        (ionInput)="search($event)"
-        ></ion-searchbar>
+        (ionInput)="search($event)"></ion-searchbar>
     </div>
     }
     <div class="exchange-tab">
@@ -19,7 +18,8 @@
         (click)="selectCryptoQuery(item)"
         [ngClass]="{ active: query() && item === query()!.to }"
         color="primary">{{ item }}</ion-chip>
-      } @if(type === 'BANK'){
+      } 
+      @if(type === 'BANK'){
       <ion-chip
         *ngFor="let item of listBank"
         (click)="selectBankQuery(item.code_bank)"
@@ -261,7 +261,14 @@
     }
   </ion-grid>
   }
-   <!-- @if(infiniteLoad && isLoadMore && !isLoading && !['GOLD',
+  @if (metaData){
+  <app-pagination [page]="metaData!.currentPage"
+    [pageSize]="limit"
+    [totalItem]="metaData!.total"
+    (pageChange)="pageChanged($event)"></app-pagination>
+  }
+
+  <!-- @if(infiniteLoad && isLoadMore && !isLoading && !['GOLD',
   'BANK'].includes(type)){
   <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
