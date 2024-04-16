@@ -4,7 +4,9 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://api.rate68.com/api'
+  apiUrl: 'https://api.rate68.com/api',
+  apiBiexceUrl: 'https://gateway0x.biexce.com/api',
+  socketBiexceUrl: 'https://socket0x.biexce.com',
 };
 
 /*

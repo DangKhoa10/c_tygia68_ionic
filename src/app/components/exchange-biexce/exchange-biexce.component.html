@@ -1,0 +1,100 @@
+<div class="exchange-block">
+  <div>
+    @if(isSearch()){
+    <div>
+      <ion-searchbar
+        class="exchange_search"
+        [debounce]="300"
+        show-clear-button="focus"
+        placeholder="Tìm kiếm"
+        (ionInput)="search($event)"
+      ></ion-searchbar>
+    </div>
+    }@else{}
+    <ion-grid class="exchange-table">
+      <ion-row class="sticky-top exchange-table-header">
+        <ion-col class="ion-text-start">Tên</ion-col>
+        <ion-col class="ion-text-end">Mua</ion-col>
+        <ion-col class="ion-text-end">Bán</ion-col>
+        @if(isShowChart()){
+        <ion-col size="2" class="ion-text-end"></ion-col>
+        }
+      </ion-row>
+    </ion-grid>
+  </div>
+  @if(isLoading()){
+  <div class="exchange-loading">
+    <ion-spinner></ion-spinner>
+  </div>
+  }@else {
+  <ion-grid class="exchange-table">
+    <ion-row *ngFor="let item of data()" class="exchange-table-row">
+      <ion-col class="ion-text-start flex items-center">
+        @if(isShowImage()){
+        <ion-img
+          class="mr-4"
+          [src]="item.baseCurrency | iconCurrency : 'URL'"
+        ></ion-img>
+        }
+        <span>
+          {{ item.baseCurrency + "/" + item.targetCurrency }}
+        </span>
+      </ion-col>
+      <ion-col class="ion-text-end">
+        <div>
+          {{ item.priceBuy | number }}
+        </div>
+        <div class="flex mt-4 justify-end items-center">
+          <ion-icon
+            class="mini"
+            size="small"
+            color="success"
+            [name]="item.changePriceBuy >= 0 ? 'caret-up' : 'caret-down'"
+          ></ion-icon>
+          <ion-text
+            [color]="item.changePriceBuy >= 0 ? 'success' : 'danger'"
+            class="fs-12"
+          >
+            {{ item.changePriceBuy | number }}
+          </ion-text>
+        </div>
+      </ion-col>
+      <ion-col class="ion-text-end">
+        <div>
+          {{ item.priceSell | number }}
+        </div>
+        <div class="flex mt-4 justify-end items-center">
+          <ion-icon
+            class="mini"
+            size="small"
+            color="success"
+            [name]="item.changePriceSell >= 0 ? 'caret-up' : 'caret-down'"
+          ></ion-icon>
+          <ion-text
+            [color]="item.changePriceSell >= 0 ? 'success' : 'danger'"
+            class="fs-12"
+          >
+            {{ item.changePriceSell | number }}
+          </ion-text>
+        </div>
+      </ion-col>
+      @if(isShowChart()){
+      <ion-col
+        size="2"
+        class="flex justify-end items-center"
+        (click)="openChart(item.baseCurrency, item.targetCurrency)"
+      >
+        <ion-icon color="secondary" name="bar-chart"></ion-icon>
+      </ion-col>
+      }
+    </ion-row>
+  </ion-grid>
+  } @if(meta()){
+  <app-pagination
+    [page]="meta()!.page"
+    [pageSize]="meta()!.limit"
+    [totalItem]="meta()!.itemCount"
+    (pageChange)="pageChanged($event)"
+  ></app-pagination>
+  }@else{}
+</div>

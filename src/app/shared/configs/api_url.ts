@@ -14,4 +14,9 @@ export const ApiUrl = {
     Categories: () => 'article/categories',
     Article: (id: number) => `article/${id}`,
   },
+  Biexce: {
+    Exchange: {
+      List: () => 'exchange/list-exchange'
+    },
+  },
 };
