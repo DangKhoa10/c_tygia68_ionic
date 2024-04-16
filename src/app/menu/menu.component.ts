@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonicModule, ModalController } from '@ionic/angular';
 import { addIcons } from 'ionicons';
-import { calculator, cash, diamond, people } from 'ionicons/icons';
+import { calculator, cash, diamond, people,close } from 'ionicons/icons';
 import { ModalConvertFiatComponent } from '../components/modal-convert-fiat/modal-convert-fiat.component';
 import { ModalConvertGoldComponent } from '../components/modal-convert-gold/modal-convert-gold.component';
 import { ModalConvertGoldWorldComponent } from '../components/modal-convert-gold-world/modal-convert-gold-world.component';
@@ -69,7 +69,7 @@ export class MenuComponent implements OnInit {
     }
   }
   constructor(private modalCtrl: ModalController) {
-    addIcons({ people, cash, diamond, calculator });
+    addIcons({ people, cash, diamond, calculator,close });
   }
 
   async openModal(action: string) {

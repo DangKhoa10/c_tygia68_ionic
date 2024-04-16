@@ -7,24 +7,26 @@
     background-repeat: no-repeat;
     background-size: 100% 270px;
     background-color: var(--bg-home);
+
     .heading {
-        color: #fff;
+        color: #fff ;
         font-weight: bold;
         text-align: center;
         margin: 25px 0;
 
     }
     .wrapper {
-        background: var(--ion-background-color, #ffffff);
+       background-color: var(--bg-exchange);
         border-radius: 8px;
         padding: 16px;
         margin-bottom: 30px;
         .exchange-list {
             display: flex;
+            --ion-background-color:transparent;
+            --ion-item-background:transparent;
             .exchange-item {
                 flex: 1;
                 text-align: center;
-
                 --border-color: transparent;
                 --inner-padding-end: 0;
                 ion-label {
@@ -36,9 +38,10 @@
                     padding-left: unset;
                 }
                 &.active {
+                   
                     --border-color: #ffcd04;
                     ion-label{
-                        --color:#000;
+                        color: var(--title-tab-ative) !important;
                     }
                 }
             }

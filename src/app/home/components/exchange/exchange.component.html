@@ -11,6 +11,7 @@
         (ionInput)="search($event)"></ion-searchbar>
     </div>
     }
+
     <div class="exchange-tab">
       @if(type === 'CRYPTO'){
       <ion-chip
@@ -18,7 +19,7 @@
         (click)="selectCryptoQuery(item)"
         [ngClass]="{ active: query() && item === query()!.to }"
         color="primary">{{ item }}</ion-chip>
-      } 
+      }
       @if(type === 'BANK'){
       <ion-chip
         *ngFor="let item of listBank"
@@ -29,6 +30,11 @@
         color="primary">{{ item.bank }}</ion-chip>
       }
     </div>
+    @if(['GOlD'].includes(type)){
+    @if(showGold){
+    <h1>Show Gold</h1>
+    }
+    }
     <ion-grid class="exchange-table">
       @if(['MARKET', 'FIAT', 'USDT', 'GOLD'].includes(type)){
       <ion-row class="sticky-top exchange-table-header">
@@ -267,11 +273,4 @@
     [totalItem]="metaData!.total"
     (pageChange)="pageChanged($event)"></app-pagination>
   }
-
-  <!-- @if(infiniteLoad && isLoadMore && !isLoading && !['GOLD',
-  'BANK'].includes(type)){
-  <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
-    <ion-infinite-scroll-content></ion-infinite-scroll-content>
-  </ion-infinite-scroll>
-  }@else{} -->
 </div>

@@ -52,7 +52,7 @@ export class ExchangeComponent implements OnChanges, OnInit {
   @Input() title_2: string;
   @Input() limit: number = 20;
   @Input() infiniteLoad: boolean = false;
-
+  @Input() showGold: boolean = false;
   isLoading = false;
   isLoadMore = true;
   query = signal<QueryExchangeModel | null>(null);
@@ -61,7 +61,13 @@ export class ExchangeComponent implements OnChanges, OnInit {
   dataGold: ExchangeGoldModel[] = [];
   dataBank: ExchangeBankModel[] = [];
   cryptoOptions: string[] = ['VND', 'USD'];
-  GoldOptions: string[] = ['Hà Nội', 'Hồ Chí Minh','Biên Hòa', 'Đà Nẵng','Miền Tây'];
+  GoldOptions: string[] = [
+    'Hà Nội',
+    'Hồ Chí Minh',
+    'Biên Hòa',
+    'Đà Nẵng',
+    'Miền Tây',
+  ];
   listBank: BankModel[];
   timeUpdate: string;
   showSearch: boolean = false;
@@ -232,20 +238,6 @@ export class ExchangeComponent implements OnChanges, OnInit {
     });
     modal.present();
   }
-
-  onIonInfinite(ev: any) {
-    if (this.infiniteLoad && this.isLoadMore && this.type != 'GOLD') {
-      let queryNew = { ...this.query() };
-      queryNew.page = queryNew.page! + 1;
-      this.query.set(queryNew);
-      setTimeout(() => {
-        (ev as InfiniteScrollCustomEvent).target.complete();
-      }, 500);
-    } else {
-      (ev as InfiniteScrollCustomEvent).target.complete();
-    }
-  }
-
   getBankOption() {
     this.exchangeService
       .ListBank({
@@ -293,8 +285,7 @@ export class ExchangeComponent implements OnChanges, OnInit {
   pageChanged(page: number) {
     console.log(page);
     let queryN = { ...this.query() };
-    queryN.page = queryN.page! + 1;
+    queryN.page = page;
     this.query.set(queryN);
-
   }
 }

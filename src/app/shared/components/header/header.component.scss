@@ -1,0 +1,13 @@
+.header{
+    // position: absolute;
+    // z-index: 100;
+    padding: 16px 0;
+    ion-toolbar{
+        --background:transparent;
+        .logo{
+            max-width: 170px;
+           
+        }
+
+    }
+}

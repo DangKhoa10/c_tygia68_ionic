@@ -4,10 +4,17 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { ExchangeComponent } from './components/exchange/exchange.component';
 import { HeaderComponent } from '../shared/components/header/header.component';
+import { ExchangeBiexceComponent } from '../components/exchange-biexce/exchange-biexce.component';
 
 @Component({
   selector: 'app-home',
-  imports: [IonicModule, CommonModule, FormsModule, ExchangeComponent,HeaderComponent],
+  imports: [
+    IonicModule,
+    CommonModule,
+    FormsModule,
+    ExchangeComponent,
+    HeaderComponent,ExchangeBiexceComponent
+  ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
   standalone: true,
@@ -15,6 +22,7 @@ import { HeaderComponent } from '../shared/components/header/header.component';
 export class HomeComponent implements OnInit {
   valueChoose = signal<string>('MARKET');
   valueChoose_2 = signal<string>('USDT');
+  valueChoose_gold = signal<string>('GOLD');
   options = [
     {
       value: 'MARKET',
@@ -40,7 +48,16 @@ export class HomeComponent implements OnInit {
       value: 'CRYPTO',
       label: 'Crypto',
     },
-  
+  ];
+  option2 = [
+    {
+      value: 'GOLD',
+      label: 'Giá vàng',
+    },
+    {
+      value: 'AREA',
+      label: 'Giá vàng khu vực',
+    },
   ];
   title: string;
   constructor() {}
@@ -50,10 +67,12 @@ export class HomeComponent implements OnInit {
   handleChang(value: string) {
     this.valueChoose_2.set(value);
   }
+  handleChangGold(value: string) {
+    this.valueChoose_gold.set(value);
+  }
   ngOnInit() {}
   listenValueChange = effect(() => {
     this.title =
       this.options.find((x) => x.value === this.valueChoose())?.label ?? '';
   });
-
 }

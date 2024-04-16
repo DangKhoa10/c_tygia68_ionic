@@ -1,4 +1,5 @@
 
+
 <ion-content class="home_content ">
   <div class="bg ">
     <app-header></app-header>
@@ -14,12 +15,17 @@
           <ion-label>{{item.label}}</ion-label>
         </ion-item>
       </ion-list>
+      @if(valueChoose()==="MARKET"){
+        <app-exchange-biexce [type]="'MARKET'"></app-exchange-biexce>
+      }@else {
       <app-exchange
         [type]="valueChoose()"
         [showTitle]="false"
         [title]="title"
         [limit]="20"
         [infiniteLoad]="true"></app-exchange>
+      }
+
     </div>
     <div class="wrapper ">
       <ion-list class="exchange-list">
