@@ -1,6 +1,40 @@
 .exchange-block {
     padding-top: 0;
     position: relative;
+    background-color: var(--exchange-bg-color);
+
+    .exchange-search {
+        height: 48px;
+        width: 100%;
+        position: relative;
+        background: transparent;
+        margin-bottom: 16px;
+
+        input {
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
+            background: transparent;
+            border: 1px solid var(--border-table-color);
+            outline: none;
+            padding: 0 16px 0 56px;
+
+            &:focus{
+                border-color: var(--ion-color-primary);
+                box-shadow: 0 0 0 0.25rem rgba(var(--ion-color-primary-rgb), 0.25);
+            }
+        }
+
+        ion-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            width: 26px;
+            height: 26px;
+            transform: translateY(-50%);
+            color: var(--ion-text-color, #000)
+        }
+    }
 
     .exchange-tab {
         white-space: nowrap;
@@ -19,37 +53,6 @@
             &.active {
                 background: var(--ion-color-primary) !important;
                 color: #fff !important;
-            }
-        }
-    }
-
-
-
-    .exchange-search {
-        position: fixed;
-        bottom: 16px;
-        right: 16px;
-        width: 56px;
-        height: 56px;
-        border-radius: 50%;
-        background-color: var(--ion-color-primary);
-        overflow: hidden;
-
-        ion-ripple-effect {
-            color: transparent;
-            opacity: 0.3;
-        }
-
-        .ripple-parent {
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            ion-icon {
-                color: #ffffff;
-                width: 24px;
-                height: 24px;
             }
         }
     }
@@ -82,13 +85,13 @@
         }
 
         .exchange-table-row {
-            
+
             font-size: 14px;
             color: var(--ion-text-color, #000);
             background-color: var(--table-body-bg-color);
             border-bottom: 1px solid var(--border-table-color);
 
-            
+
 
             ion-icon.mini {
                 width: 12px;

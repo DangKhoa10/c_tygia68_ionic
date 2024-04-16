@@ -23,16 +23,30 @@ import { QueryExchangeModel } from 'src/app/shared/models/exchange.model';
 import { BehaviorSubject, catchError, from, of, switchMap } from 'rxjs';
 import { ExchangeService } from 'src/app/shared/services/exchange.service';
 import { Socket } from 'ngx-socket-io';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   standalone: true,
   selector: 'app-exchange-biexce',
   templateUrl: './exchange-biexce.component.html',
   styleUrls: ['./exchange-biexce.component.scss'],
-  imports: [IonicModule, CommonModule, IconCurrencyPipe, PaginationComponent],
+  imports: [
+    IonicModule,
+    CommonModule,
+    IconCurrencyPipe,
+    PaginationComponent,
+    FormsModule,
+  ],
 })
 export class ExchangeBiexceComponent implements OnInit, OnChanges, OnDestroy {
-  @Input() type: string;
+  @Input() type:
+    | 'MARKET'
+    | 'GOLD'
+    | 'AGRICULTURAL'
+    | 'BANK'
+    | 'FIAT'
+    | 'USDT'
+    | 'CRYPTO';
 
   protected isLoading = signal<boolean>(false);
   protected isFirstLoading = signal<boolean>(true);
@@ -46,7 +60,7 @@ export class ExchangeBiexceComponent implements OnInit, OnChanges, OnDestroy {
     new BehaviorSubject<QueryExchangeModel | null>(null);
   exchangeService: ExchangeService = inject(ExchangeService);
   private _socket: Socket = inject(Socket);
-
+  searchKey: string;
   constructor(private modalCtrl: ModalController) {
     addIcons({ barChart, caretDown, caretUp, search });
   }
@@ -226,8 +240,7 @@ export class ExchangeBiexceComponent implements OnInit, OnChanges, OnDestroy {
     );
   }
 
-  search(event: any) {
-    let value = event.detail.value;
+  search(value: string) {
     // this.querySub.next({
     //   ...this.querySub.value,
     //   page: 1,
@@ -240,6 +253,7 @@ export class ExchangeBiexceComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   pageChanged(page: number) {
+    this.searchKey = '';
     this.querySub.next({
       ...this.querySub.value,
       page: page,

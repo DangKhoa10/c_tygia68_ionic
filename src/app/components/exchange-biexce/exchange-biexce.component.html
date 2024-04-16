@@ -1,14 +1,9 @@
 <div class="exchange-block ion-padding">
   <div>
     @if(isSearch()){
-    <div>
-      <ion-searchbar
-        class="exchange_search"
-        [debounce]="300"
-        show-clear-button="focus"
-        placeholder="Tìm kiếm"
-        (ionInput)="search($event)"
-      ></ion-searchbar>
+    <div class="exchange-search">
+      <input type="text" placeholder="Tìm kiếm" [(ngModel)]="searchKey" (ngModelChange)="search($event)"  />
+      <ion-icon name="search"></ion-icon>
     </div>
     }@else{}
     <ion-grid class="exchange-table">
@@ -37,7 +32,7 @@
         ></ion-img>
         }
         <span>
-          {{ item.baseCurrency + "/" + item.targetCurrency }}
+          {{ item.name }}
         </span>
       </ion-col>
       <ion-col class="ion-text-end flex flex-column justify-center">
