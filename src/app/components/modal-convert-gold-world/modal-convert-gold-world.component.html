@@ -1,14 +1,24 @@
-<ion-header class="ion-no-border" [translucent]="true">
+<ion-header class="header-modal ion-no-border" [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-button (click)="cancel()">
-        <ion-icon size="large" name="chevron-back"></ion-icon>
+        <ion-icon name="chevron-back"></ion-icon>
       </ion-button>
     </ion-buttons>
     <ion-title>Chuyển đổi giá vàng thế giới</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content class="ion-padding">
-  
+<ion-content class="content-modal ion-padding">
+  <ion-input
+    label="Giá thế giới"
+    label-placement="floating"
+    fill="outline"
+    color="primary"
+  ></ion-input>
+  <ion-input
+    label="Tỷ giá USD/VND"
+    label-placement="floating"
+    fill="outline"
+    color="primary"
+  ></ion-input>
 </ion-content>
-
