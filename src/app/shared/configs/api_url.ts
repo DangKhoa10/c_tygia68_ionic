@@ -8,6 +8,7 @@ export const ApiUrl = {
     Bank: (id: string) => `exchange-rate-bank/${id}`,
     ListGoldArea: () => 'exchange-rate/list-area-gold',
     ListBank: () => 'exchange-rate-bank/list-banks',
+    ListGoldAreaOption: () => 'exchange-rate/list-area-gold',
   },
   Article: {
     List: () => '/news/list-news',

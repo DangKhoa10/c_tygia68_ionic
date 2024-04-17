@@ -1,46 +1,59 @@
 .bg {
-    background-image: url("https://tygia68.com/assets/imgs/background.png");
+    background-image: url("./assets/images/background.png");
     --min-height: 270px;
     --opacity: 1;
     --ion-padding: 8px;
-    padding: 0 16px;
+    padding: 0 16px 16px;
     background-repeat: no-repeat;
     background-size: 100% 270px;
     background-color: var(--bg-home);
 
     .heading {
-        color: #fff ;
+        color: #fff;
         font-weight: bold;
         text-align: center;
         margin: 25px 0;
 
     }
+
     .wrapper {
-       background-color: var(--bg-exchange);
+        background-color: var(--bg-exchange);
         border-radius: 8px;
         padding: 16px;
-        margin-bottom: 30px;
+        margin-bottom: 16px;
+
+        &:last-child{
+            margin-bottom: 0px;
+        }
+
         .exchange-list {
             display: flex;
-            --ion-background-color:transparent;
-            --ion-item-background:transparent;
+            margin-bottom: 8px;
+            --ion-background-color: transparent;
+            --ion-item-background: transparent;
+
             .exchange-item {
                 flex: 1;
                 text-align: center;
+                --inner-border-width: 0 0 2px 0;
                 --border-color: transparent;
                 --inner-padding-end: 0;
+
                 ion-label {
                     font-size: 18px;
                     font-weight: 500;
-                    --color:#ccc;
+                    --color: #ccc;
                 }
+
                 &::part(native) {
                     padding-left: unset;
                 }
+
                 &.active {
-                   
-                    --border-color: #ffcd04;
-                    ion-label{
+
+                    --border-color: var(--ion-color-primary);
+
+                    ion-label {
                         color: var(--title-tab-ative) !important;
                     }
                 }

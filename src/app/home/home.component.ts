@@ -48,6 +48,10 @@ export class HomeComponent implements OnInit {
       value: 'CRYPTO',
       label: 'Crypto',
     },
+    {
+      value: 'ECURRENCY',
+      label: 'E-Currency',
+    },
   ];
   option2 = [
     {
@@ -55,8 +59,12 @@ export class HomeComponent implements OnInit {
       label: 'Giá vàng',
     },
     {
-      value: 'AREA',
-      label: 'Giá vàng khu vực',
+      value: 'GOLDAREA',
+      label: 'Khu vực',
+    },
+    {
+      value: 'GOLDREFERENCE',
+      label: 'Tham chiếu',
     },
   ];
   title: string;

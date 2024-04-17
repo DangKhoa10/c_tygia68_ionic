@@ -41,7 +41,7 @@
         </ion-text>
         <div class="flex mt-4 justify-end items-center">
           <ion-icon
-            class="mini"
+            class="mini animation-renew"
             size="small"
             [color]="item.changePriceBuy >= 0 ? 'success' : 'danger'"
             [name]="item.changePriceBuy >= 0 ? 'caret-up' : 'caret-down'"
@@ -55,14 +55,14 @@
         </div>
       </ion-col>
       <ion-col class="ion-text-end flex flex-column justify-center">
-        <ion-text [color]="item.changePriceBuy >= 0 ? 'success' : 'danger'">
+        <ion-text [color]="item.changePriceSell >= 0 ? 'success' : 'danger'">
           {{ item.priceSell | number }}
         </ion-text>
         <div class="flex mt-4 justify-end items-center">
           <ion-icon
-            class="mini"
+            class="mini animation-renew"
             size="small"
-            [color]="item.changePriceBuy >= 0 ? 'success' : 'danger'"
+            [color]="item.changePriceSell >= 0 ? 'success' : 'danger'"
             [name]="item.changePriceSell >= 0 ? 'caret-up' : 'caret-down'"
           ></ion-icon>
           <ion-text

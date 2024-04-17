@@ -1,12 +1,10 @@
 <ion-menu side="end" contentId="main-content" class="main_menu">
-
-  <div class="ion-margin-top ion-text-center">
-    <ion-button class="ion-margin" shape="round">Đăng nhập</ion-button>
-  </div>
   <ion-content>
-    <ion-menu-toggle>
-      <ion-icon name="close"></ion-icon>
-    </ion-menu-toggle>
+    <div class="ion-padding ion-text-end">
+      <ion-menu-toggle>
+        <ion-icon size="large" name="close"></ion-icon>
+      </ion-menu-toggle>
+    </div>
     <ion-list id="inbox-list">
       <ion-item
         lines="none"
@@ -20,13 +18,13 @@
         <ion-toggle
           [(ngModel)]="themeToggle"
           (ionChange)="toggleChange($event)"
-          justify="space-between">Dark Mode</ion-toggle>
+          justify="space-between">Chế độ tối</ion-toggle>
       </ion-item>
     </ion-list>
   </ion-content>
-  <ion-footer>
+  <!-- <ion-footer>
     <ion-toolbar class="ion-text-center">
       <ion-toggle justify="space-between">Hiển thị thông báo</ion-toggle>
     </ion-toolbar>
-  </ion-footer>
+  </ion-footer> -->
 </ion-menu>

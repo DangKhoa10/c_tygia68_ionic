@@ -31,11 +31,27 @@ export interface ExchangeGoldModel {
   buyChangePercent: string;
   buyingPrice: number;
   code: number;
-  dateTime: number;
-  name: number;
+  dateTime: string;
+  name: string;
   sellChange: number;
   sellChangePercent: number;
   sellingPrice: number;
+
+  buy: number;
+  date: string;
+  prev_buy: number;
+  prev_sell: number;
+  sell: number;
+  time: string;
+  type: string;
+}
+
+export interface ExchangeGoldAreaModel {
+  area: string;
+  buy_price: string;
+  note: string;
+  sell_price: string;
+  type: string;
 }
 export interface BankModel {
   bank: string;
@@ -57,8 +73,15 @@ export interface QueryExchangeModel {
   type?: string;
   to?: string;
   search?: string;
+  source_id?: number;
   bank_code?: string;
-  market?: string
+  market?: string;
   country?: string;
-  targetCurrency?: string
+  targetCurrency?: string;
+  area?: string;
+}
+
+export interface NiceGoldModel {
+  SJC_World: number;
+  Bdep_World: number;
 }

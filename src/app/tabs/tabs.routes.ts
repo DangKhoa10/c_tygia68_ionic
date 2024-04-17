@@ -12,11 +12,6 @@ export const routes: Routes = [
           import('../home/home.component').then((m) => m.HomeComponent),
       },
       {
-        path: 'tygia68',
-        loadComponent: () =>
-          import('../tygia68/tygia68.page').then((m) => m.Tygia68Page),
-      },
-      {
         path: 'article',
         children: [
           {
@@ -27,12 +22,8 @@ export const routes: Routes = [
         ],
       },
       {
-        path: 'ads',
-        loadComponent: () => import('../ads/ads.page').then((m) => m.AdsPage),
-      },
-      {
         path: '',
-        redirectTo: '/tygia68',
+        redirectTo: '/home',
         pathMatch: 'full',
       },
     ],

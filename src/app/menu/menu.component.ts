@@ -3,11 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonicModule, ModalController } from '@ionic/angular';
 import { addIcons } from 'ionicons';
-import { calculator, cash, diamond, people,close } from 'ionicons/icons';
+import { calculator, cash, diamond, people, close } from 'ionicons/icons';
 import { ModalConvertFiatComponent } from '../components/modal-convert-fiat/modal-convert-fiat.component';
 import { ModalConvertGoldComponent } from '../components/modal-convert-gold/modal-convert-gold.component';
 import { ModalConvertGoldWorldComponent } from '../components/modal-convert-gold-world/modal-convert-gold-world.component';
-import { ModalGoldAreaComponent } from '../components/modal-gold-area/modal-gold-area.component';
 
 @Component({
   selector: 'app-menu',
@@ -25,7 +24,7 @@ export class MenuComponent implements OnInit {
       name: 'Cộng đồng tỷ giá 68',
       icon: 'people',
       action: 'SOCIAL',
-      path:'community'
+      path: 'community',
     },
     {
       id: 1,
@@ -51,12 +50,6 @@ export class MenuComponent implements OnInit {
       icon: 'diamond',
       action: 'GOLD_WORLD',
     },
-    {
-      id: 5,
-      name: 'Giá vàng khu vực',
-      icon: 'diamond',
-      action: 'GOLD_REGION',
-    },
   ];
 
   toggleChange(value: any | boolean) {
@@ -69,14 +62,20 @@ export class MenuComponent implements OnInit {
     }
   }
   constructor(private modalCtrl: ModalController) {
-    addIcons({ people, cash, diamond, calculator,close });
+    addIcons({ people, cash, diamond, calculator, close });
   }
 
   async openModal(action: string) {
     switch (action) {
+      case 'SOCIAL':
+        break;
       case 'CALCULATOR':
         break;
-      case 'SOCIAL':
+      case 'CONVERT_FIAT':
+        const modal = await this.modalCtrl.create({
+          component: ModalConvertFiatComponent,
+        });
+        modal.present();
         break;
       case 'GOLD':
         const modalGold = await this.modalCtrl.create({
@@ -90,18 +89,7 @@ export class MenuComponent implements OnInit {
         });
         modalGoldW.present();
         break;
-      case 'GOLD_REGION':
-        const modalGoldR = await this.modalCtrl.create({
-          component: ModalGoldAreaComponent,
-        });
-        modalGoldR.present();
-        break;
-      case 'CONVERT_FIAT':
-        const modal = await this.modalCtrl.create({
-          component: ModalConvertFiatComponent,
-        });
-        modal.present();
-        break;
+
       default:
         break;
     }

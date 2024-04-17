@@ -1,3 +1,20 @@
-.main_menu{
-    --width:100%;
+.main_menu {
+    --width: 100%;
+
+    ion-content {
+        --background: var(--bg-exchange);
+
+        ion-list {
+            background: var(--bg-exchange);
+        }
+
+        ion-item {
+            --background: var(--bg-exchange);
+
+            ion-label,
+            ion-toggle {
+                font-weight: 500;
+            }
+        }
+    }
 }

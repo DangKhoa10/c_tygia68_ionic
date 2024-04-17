@@ -1,48 +1,66 @@
-
-
-<ion-content class="home_content ">
-  <div class="bg ">
+<ion-content class="home_content">
+  <div class="bg">
     <app-header></app-header>
-    <h1 class="heading ">Xem tỷ giá ngoại tệ<br
-        class="d-block d-md-none"> trực tuyến tại
-      <span class="text-primary">Tỷ giá 68</span></h1>
-    <div class="wrapper ">
+    <h1 class="heading">
+      Xem tỷ giá ngoại tệ<br class="d-block d-md-none" />
+      trực tuyến tại <span class="text-primary">Tỷ giá 68</span>
+    </h1>
+    <div class="wrapper">
       <ion-list class="exchange-list">
-        <ion-item class="exchange-item" *ngFor="let item of options"
+        <ion-item
+          class="exchange-item"
+          *ngFor="let item of options"
           [ngClass]="{
-          active: valueChoose()== item.value   
-        }" (click)="selectValue(item.value)">
-          <ion-label>{{item.label}}</ion-label>
+            active: valueChoose() === item.value
+          }"
+          (click)="selectValue(item.value)"
+        >
+          <ion-label>{{ item.label }}</ion-label>
         </ion-item>
       </ion-list>
       @if(valueChoose()==="MARKET"){
-        <app-exchange-biexce [type]="'MARKET'"></app-exchange-biexce>
+      <app-exchange-biexce [type]="'MARKET'"></app-exchange-biexce>
       }@else {
-      <app-exchange
-        [type]="valueChoose()"
-        [showTitle]="false"
-        [title]="title"
-        [limit]="20"
-        [infiniteLoad]="true"></app-exchange>
+      <app-exchange [type]="valueChoose()"></app-exchange>
       }
-
     </div>
-    <div class="wrapper ">
+    <div class="wrapper">
       <ion-list class="exchange-list">
-        <ion-item class="exchange-item" *ngFor="let item of options1"
+        <ion-item
+          class="exchange-item"
+          *ngFor="let item of options1"
           [ngClass]="{
-          active: valueChoose_2()== item.value   
-        }" (click)="handleChang(item.value)">
-          <ion-label>{{item.label}}</ion-label>
+            active: valueChoose_2() === item.value
+          }"
+          (click)="handleChang(item.value)"
+        >
+          <ion-label>{{ item.label }}</ion-label>
         </ion-item>
       </ion-list>
-      <app-exchange
-        [type]="valueChoose_2()"
-        [showTitle]="false"
-        [title]="title"
-        [limit]="20"
-        [infiniteLoad]="true"></app-exchange>
+      <app-exchange [type]="valueChoose_2()"></app-exchange>
+    </div>
+    <div class="wrapper">
+      <ion-list class="exchange-list">
+        <ion-item
+          class="exchange-item"
+          *ngFor="let item of option2"
+          [ngClass]="{
+            active: valueChoose_gold() === item.value
+          }"
+          (click)="handleChangGold(item.value)"
+        >
+          <ion-label>{{ item.label }}</ion-label>
+        </ion-item>
+      </ion-list>
+      <app-exchange [type]="valueChoose_gold()"></app-exchange>
+    </div>
+    <div class="wrapper">
+      <ion-list class="exchange-list">
+        <ion-item class="exchange-item active">
+          <ion-label>{{ "Giá nông sản" }}</ion-label>
+        </ion-item>
+      </ion-list>
+      <app-exchange-biexce [type]="'AGRICULTURAL'"></app-exchange-biexce>
     </div>
   </div>
-
 </ion-content>

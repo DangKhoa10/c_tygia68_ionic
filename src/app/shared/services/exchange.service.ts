@@ -3,8 +3,10 @@ import { ApiUrl } from '../configs/api_url';
 import { ApiService } from './api.service';
 import {
   ExchangeBankModel,
+  ExchangeGoldAreaModel,
   ExchangeGoldModel,
   ExchangeModel,
+  NiceGoldModel,
   QueryExchangeModel,
 } from '../models/exchange.model';
 import { ApiBiexceService } from './api-biexce.service';
@@ -33,15 +35,43 @@ export class ExchangeService {
     );
   }
 
+  ListGoldReference(query: QueryExchangeModel) {
+    return this.apiService.get<ExchangeGoldModel[]>(
+      this.apiRoute.GoldReference(),
+      query
+    );
+  }
+
   ListBank(query: QueryExchangeModel) {
     return this.apiService.get<any[]>(this.apiRoute.ListBank(), query);
   }
 
   ListBankPrice(id: string, query: QueryExchangeModel) {
-    return this.apiService.get<ExchangeBankModel[]>(this.apiRoute.Bank(id), query);
+    return this.apiService.get<ExchangeBankModel[]>(
+      this.apiRoute.Bank(id),
+      query
+    );
   }
 
-  ListExchangeBiexce(query: QueryExchangeModel){
-    return this.apiBiexceService.get<ExchangeBiexceModel>(this.apiRouteBiexce.List(), query);
+  ListGoldAreaOption(query: QueryExchangeModel) {
+    return this.apiService.get<string[]>(this.apiRoute.ListGoldAreaOption(), query);
+  }
+
+  ListNiceGold(query: QueryExchangeModel) {
+    return this.apiService.get<NiceGoldModel[]>(this.apiRoute.NicePrice(), query);
+  }
+
+  ListGoldArea(query: QueryExchangeModel) {
+    return this.apiService.get<ExchangeGoldAreaModel[]>(
+      this.apiRoute.GoldArea(),
+      query
+    );
+  }
+
+  ListExchangeBiexce(query: QueryExchangeModel) {
+    return this.apiBiexceService.get<ExchangeBiexceModel>(
+      this.apiRouteBiexce.List(),
+      query
+    );
   }
 }
