@@ -11,17 +11,23 @@ export const ApiUrl = {
     ListGoldAreaOption: () => 'exchange-rate/list-area-gold',
     ConvertGoldWorld: () => 'exchange-rate/exchange-gold-world',
     ConvertGold: () => 'exchange-rate/exchange-gold-tudo',
+
+    ConvertMoney: () => 'exchange-rate/convert-money',
   },
   Article: {
     List: () => '/news/list-news',
     Categories: () => 'article/categories',
     Article: (id: number) => `article/${id}`,
   },
+
   Biexce: {
     Exchange: {
       List: () => 'exchange/list-exchange',
       ListCurrencies: () => 'exchange/currencies',
       CalculateRate: () => 'exchange/calculate',
     },
+  },
+  Charged: {
+    calculateloan: () => 'loan/calculate-loan',
   },
 };

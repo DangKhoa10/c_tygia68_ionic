@@ -104,11 +104,17 @@ export class ApiService {
     );
   }
 
-  post<T>(url: string, payload: Payload = {}, options?: HttpOptions) {
+  post<T>(
+    url: string,
+    payload: Payload = {},
+    query?: Payload,
+    options?: HttpOptions
+  ) {
     options = this._rebuild_options(options);
     return firstValueFrom<T>(
       this._http
         .post<ApiResponse<T>>(this._build_url(url), payload, {
+          params: this.getParams(query),
           responseType: 'json',
           ...options,
         })

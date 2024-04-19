@@ -12,33 +12,37 @@
   <div class="form-group ion-margin-bottom">
     <ion-input label="Số tiền vay" label-placement="floating"
       fill="outline"
-      placeholder></ion-input>
+      [(ngModel)]="exchangeValue"
+      [maskito]="maskOpts"></ion-input>
 
   </div>
   <div class="form-group ion-margin-bottom">
     <ion-input label="Thời gian vay tiền" label-placement="floating"
       mode="ios | md"
       fill="outline"
-      placeholder></ion-input>
+      placeholder [(ngModel)]="time"></ion-input>
     <div class="input-action">
-      <ion-select [interfaceOptions]="customPopoverOptions" value="year"
+      <ion-select [interfaceOptions]="customPopoverOptions"
+        [value]="time_unit_id" [(ngModel)]="time_unit_id"
         interface="popover" placeholder="Select One">
-        <ion-select-option value="year">Năm</ion-select-option>
-        <ion-select-option value="month">Tháng</ion-select-option>
+        <ion-select-option value="1">Năm</ion-select-option>
+        <ion-select-option value="2">Tháng</ion-select-option>
       </ion-select>
     </div>
   </div>
   <div class="form-group ion-margin-bottom">
     <ion-input label="Lãi xuất %" label-placement="floating"
       fill="outline"
-      placeholder></ion-input>
+      placeholder [(ngModel)]="interest"></ion-input>
 
   </div>
   <div class="form-group ion-margin-bottom">
     <ion-label class="ion-text-wrap">
       Loại hình trả
     </ion-label>
-    <ion-select [interfaceOptions]="customPopoverOptions" value="2"
+    <ion-select [interfaceOptions]="customPopoverOptions"
+      [value]="interest_type_id"
+      [(ngModel)]="interest_type_id"
       interface="popover" placeholder="Chọn phương thức" fill="outline">
       <ion-select-option value="1">Trả lãi chia đều</ion-select-option>
       <ion-select-option value="2">Trả lại theo dư nợ giảm
@@ -46,6 +50,32 @@
     </ion-select>
   </div>
   <div>
-    <ion-button expand="block" color="primary">Xem kết quả</ion-button>
+    <ion-button shape="round" expand="full" color="primary"
+      (click)="charged()">Xem kết
+      quả</ion-button>
   </div>
+
+  @if (isLoading) {
+  <div class="ion-text-center">
+    <ion-spinner></ion-spinner>
+  </div>
+  }@else if(dataCharged) {
+
+  }
+    <div>
+    <ion-grid class="charged-table">
+      <ion-row class="charged-table-header">
+        <ion-col class="ion-text-start">Tháng</ion-col>
+        <ion-col class="ion-text-end">Kết quả</ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <ion-grid class="charged-table">
+    <ion-row *ngFor="let item of dataCharged" class="charged-table-row">
+      <ion-col class="ion-text-start flex items-center">
+          {{item.month}}
+      </ion-col>
+      <ion-col class="ion-text-start flex items-center"></ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

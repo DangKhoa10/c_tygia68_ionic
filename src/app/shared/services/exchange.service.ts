@@ -103,7 +103,9 @@ export class ExchangeService {
       query
     );
   }
+
   ConvertGold(query: QueryExchangeModel) {
     return this.apiService.get<any[]>(this.apiRoute.ConvertGold(), query);
   }
+
 }
