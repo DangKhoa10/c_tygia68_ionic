@@ -3,4 +3,8 @@
 }
 .modal-content {
     --background: var(--bg-exchange);
+
+    .has-focus{
+        --highlight-color: var(--ion-color-primary) !important;
+    }
 }

@@ -20,13 +20,13 @@ export class MenuComponent implements OnInit {
   themeToggle = false;
 
   menus = [
-    {
-      id: 0,
-      name: 'Cộng đồng tỷ giá 68',
-      icon: 'people',
-      action: 'SOCIAL',
-      path: 'community',
-    },
+    // {
+    //   id: 0,
+    //   name: 'Cộng đồng tỷ giá 68',
+    //   icon: 'people',
+    //   action: 'SOCIAL',
+    //   path: 'community',
+    // },
     {
       id: 1,
       name: 'Tính lãi vay',
