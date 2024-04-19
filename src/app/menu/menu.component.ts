@@ -7,6 +7,7 @@ import { calculator, cash, diamond, people, close } from 'ionicons/icons';
 import { ModalConvertFiatComponent } from '../components/modal-convert-fiat/modal-convert-fiat.component';
 import { ModalConvertGoldComponent } from '../components/modal-convert-gold/modal-convert-gold.component';
 import { ModalConvertGoldWorldComponent } from '../components/modal-convert-gold-world/modal-convert-gold-world.component';
+import { ModalChargedComponent } from '../components/modal-charged/modal-charged.component';
 
 @Component({
   selector: 'app-menu',
@@ -70,6 +71,10 @@ export class MenuComponent implements OnInit {
       case 'SOCIAL':
         break;
       case 'CALCULATOR':
+        const modalCHARGED = await this.modalCtrl.create({
+          component: ModalChargedComponent,
+        });
+        modalCHARGED.present();
         break;
       case 'CONVERT_FIAT':
         const modal = await this.modalCtrl.create({
@@ -89,7 +94,6 @@ export class MenuComponent implements OnInit {
         });
         modalGoldW.present();
         break;
-
       default:
         break;
     }

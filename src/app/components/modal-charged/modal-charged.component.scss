@@ -1,0 +1,21 @@
+
+.modal-chared-conent {
+   
+    .form-group {
+        position: relative;
+        ion-input{
+            input{
+                padding-right:60px ;
+            }
+        }
+        .input-action{
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 99;
+            // min-width: 200px;
+        }
+    }
+   
+}

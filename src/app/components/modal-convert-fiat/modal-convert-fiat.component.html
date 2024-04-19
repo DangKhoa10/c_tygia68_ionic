@@ -1,16 +1,26 @@
-<ion-header>
+<ion-header class="ion-no-border modal-header" [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button color="medium" (click)="cancel()">Cancel</ion-button>
+      <ion-button (click)="cancel()">
+        <ion-icon size="large" name="chevron-back"></ion-icon>
+      </ion-button>
     </ion-buttons>
-    <ion-title>Welcome</ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="confirm()" [strong]="true">Confirm</ion-button>
-    </ion-buttons>
+    <ion-title>Chuyển đổi tiền tệ</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content class="ion-padding">
-  <ion-item>
-    <ion-input labelPlacement="stacked" label="Enter your name" placeholder="Your name"></ion-input>
-  </ion-item>
+<ion-content class="ion-padding modal-convert-fiat modal-content">
+  <div class="form-group ion-margin-bottom">
+    <ion-input label="Số lượng" label-placement="floating"
+      fill="outline"
+      placeholder></ion-input>
+
+  </div>
+  <div class="form-group ion-margin-bottom">
+    <ion-select [interfaceOptions]="customPopoverOptions" value
+      interface="popover" placeholder="Từ tiền" fill="outline">
+      <ion-select-option *ngFor="let item of moneyFrom" [value]="item.value">{{item.label}}</ion-select-option>
+    
+    </ion-select>
+
+  </div>
 </ion-content>
