@@ -1,4 +1,7 @@
-<ion-header class="header-modal ion-no-border" [translucent]="true">
+<ion-header
+  class="header-modal modal-header ion-no-border"
+  [translucent]="true"
+>
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-button (click)="cancel()">
@@ -16,7 +19,7 @@
       placeholder="Nhập giá"
       fill="outline"
       color="primary"
-      [value]="goldValue"
+      [(ngModel)]="goldValue"
       [maskito]="maskOpts"
     >
       <ion-label slot="end">USD</ion-label>
