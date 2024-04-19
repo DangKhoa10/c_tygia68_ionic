@@ -20,6 +20,8 @@ export const ApiUrl = {
   Biexce: {
     Exchange: {
       List: () => 'exchange/list-exchange',
+      ListCurrencies: () => 'exchange/currencies',
+      CalculateRate: () => 'exchange/calculate',
     },
   },
 };

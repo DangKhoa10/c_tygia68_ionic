@@ -1,10 +1,20 @@
 .modal-header {
     --ion-toolbar-background: var(--bg-exchange);
 }
+
 .modal-content {
     --background: var(--bg-exchange);
 
-    .has-focus{
+    .has-focus,
+    .select-expanded {
         --highlight-color: var(--ion-color-primary) !important;
+    }
+
+    ion-select {
+
+        .select-wrapper-inner {
+            width: 100%;
+            justify-content: space-between;
+        }
     }
 }

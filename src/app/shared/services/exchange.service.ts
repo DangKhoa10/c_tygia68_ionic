@@ -10,7 +10,10 @@ import {
   QueryExchangeModel,
 } from '../models/exchange.model';
 import { ApiBiexceService } from './api-biexce.service';
-import { ExchangeBiexceModel } from '../models/exchange-biexce.model';
+import {
+  CurrencyExchangeModel,
+  ExchangeBiexceModel,
+} from '../models/exchange-biexce.model';
 
 @Injectable({
   providedIn: 'root',
@@ -77,6 +80,19 @@ export class ExchangeService {
   ListExchangeBiexce(query: QueryExchangeModel) {
     return this.apiBiexceService.get<ExchangeBiexceModel>(
       this.apiRouteBiexce.List(),
+      query
+    );
+  }
+
+  CalculateRate(query: QueryExchangeModel) {
+    return this.apiBiexceService.get<{
+      rate: number;
+    }>(this.apiRouteBiexce.CalculateRate(), query);
+  }
+
+  ListCurrencyBiexce(query: QueryExchangeModel) {
+    return this.apiBiexceService.get<CurrencyExchangeModel[]>(
+      this.apiRouteBiexce.ListCurrencies(),
       query
     );
   }

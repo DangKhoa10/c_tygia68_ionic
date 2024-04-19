@@ -28,3 +28,8 @@ export interface ExchangeBiexceFieldModel {
   amptitudeSell: number;
   type: string;
 }
+export interface CurrencyExchangeModel{
+  currency: string
+  label: string
+  type: string
+}

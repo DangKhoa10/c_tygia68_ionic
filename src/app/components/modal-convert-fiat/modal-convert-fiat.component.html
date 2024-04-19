@@ -1,26 +1,76 @@
-<ion-header class="ion-no-border modal-header" [translucent]="true">
+<ion-header
+  class="header-modal modal-header ion-no-border"
+  [translucent]="true"
+>
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-button (click)="cancel()">
-        <ion-icon size="large" name="chevron-back"></ion-icon>
+        <ion-icon name="chevron-back"></ion-icon>
       </ion-button>
     </ion-buttons>
     <ion-title>Chuyển đổi tiền tệ</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content class="ion-padding modal-convert-fiat modal-content">
-  <div class="form-group ion-margin-bottom">
-    <ion-input label="Số lượng" label-placement="floating"
+<ion-content class="content-modal ion-padding modal-content">
+  <div class="ion-margin-bottom">
+    <ion-input
+      label="Số lượng"
+      labelPlacement="stacked"
+      placeholder="Nhập số lượng"
       fill="outline"
-      placeholder></ion-input>
-
+      color="primary"
+      [(ngModel)]="value"
+      [maskito]="maskOpts"
+    >
+      <ion-label slot="end">{{ from }}</ion-label>
+    </ion-input>
   </div>
-  <div class="form-group ion-margin-bottom">
-    <ion-select [interfaceOptions]="customPopoverOptions" value
-      interface="popover" placeholder="Từ tiền" fill="outline">
-      <ion-select-option *ngFor="let item of moneyFrom" [value]="item.value">{{item.label}}</ion-select-option>
-    
+  <div class="ion-margin-bottom">
+    <ion-select
+      placeholder="Từ tiền"
+      label-placement="floating"
+      fill="outline"
+      [(ngModel)]="from"
+    >
+      <ion-select-option *ngFor="let item of options" [value]="item.currency">{{
+        item.label
+      }}</ion-select-option>
     </ion-select>
-
   </div>
+  <div class="ion-margin-bottom">
+    <ion-select
+      placeholder="Sang tiền"
+      label-placement="floating"
+      fill="outline"
+      [(ngModel)]="to"
+    >
+      <ion-select-option *ngFor="let item of options" [value]="item.currency">{{
+        item.label
+      }}</ion-select-option>
+    </ion-select>
+  </div>
+  <div class="ion-margin-bottom">
+    <ion-button (click)="convert()" expand="block" color="primary"
+      >Quy đổi</ion-button
+    >
+  </div>
+  @if(isLoading){
+  <div class="ion-text-center">
+    <ion-spinner></ion-spinner>
+  </div>
+  }@else if(valueConvert){
+  <div class="ion-margin-bottom">
+    <ion-input
+      label="Giá quy đổi"
+      labelPlacement="stacked"
+      fill="outline"
+      readonly
+      color="primary"
+      [(ngModel)]="valueConvert"
+      [maskito]="maskOpts"
+    >
+      <ion-label slot="end">{{ to }}</ion-label>
+    </ion-input>
+  </div>
+  }
 </ion-content>

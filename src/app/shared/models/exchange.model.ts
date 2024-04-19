@@ -81,6 +81,7 @@ export interface QueryExchangeModel {
   area?: string;
   rate?: number;
   price?: number;
+  from?: string;
 }
 
 export interface NiceGoldModel {
