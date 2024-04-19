@@ -30,7 +30,7 @@ export interface ExchangeGoldModel {
   buyChange: number;
   buyChangePercent: string;
   buyingPrice: number;
-  code: number;
+  code: string;
   dateTime: string;
   name: string;
   sellChange: number;
@@ -79,6 +79,8 @@ export interface QueryExchangeModel {
   country?: string;
   targetCurrency?: string;
   area?: string;
+  rate?: number;
+  price?: number;
 }
 
 export interface NiceGoldModel {

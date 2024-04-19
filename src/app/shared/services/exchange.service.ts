@@ -54,11 +54,17 @@ export class ExchangeService {
   }
 
   ListGoldAreaOption(query: QueryExchangeModel) {
-    return this.apiService.get<string[]>(this.apiRoute.ListGoldAreaOption(), query);
+    return this.apiService.get<string[]>(
+      this.apiRoute.ListGoldAreaOption(),
+      query
+    );
   }
 
   ListNiceGold(query: QueryExchangeModel) {
-    return this.apiService.get<NiceGoldModel[]>(this.apiRoute.NicePrice(), query);
+    return this.apiService.get<NiceGoldModel[]>(
+      this.apiRoute.NicePrice(),
+      query
+    );
   }
 
   ListGoldArea(query: QueryExchangeModel) {
@@ -73,5 +79,15 @@ export class ExchangeService {
       this.apiRouteBiexce.List(),
       query
     );
+  }
+
+  ConvertGoldWorld(query: QueryExchangeModel) {
+    return this.apiService.get<number[]>(
+      this.apiRoute.ConvertGoldWorld(),
+      query
+    );
+  }
+  ConvertGold(query: QueryExchangeModel) {
+    return this.apiService.get<any[]>(this.apiRoute.ConvertGold(), query);
   }
 }

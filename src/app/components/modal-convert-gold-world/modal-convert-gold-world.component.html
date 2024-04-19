@@ -8,24 +8,55 @@
     <ion-title>Chuyển đổi giá vàng thế giới</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content class="content-modal ion-padding">
+<ion-content class="content-modal ion-padding modal-content">
   <div class="ion-margin-bottom">
     <ion-input
       label="Giá thế giới"
-      label-placement="floating"
+      labelPlacement="stacked"
+      placeholder="Nhập giá"
       fill="outline"
       color="primary"
-    ></ion-input>
+      [value]="goldValue"
+      [maskito]="maskOpts"
+    >
+      <ion-label slot="end">USD</ion-label>
+    </ion-input>
   </div>
   <div class="ion-margin-bottom">
     <ion-input
       label="Tỷ giá USD/VND"
-      label-placement="floating"
+      labelPlacement="stacked"
+      placeholder="Nhập giá"
       fill="outline"
       color="primary"
-    ></ion-input>
+      [(ngModel)]="exchangeValue"
+      [maskito]="maskOpts"
+    >
+      <ion-label slot="end">VND</ion-label>
+    </ion-input>
   </div>
+  <div class="ion-margin-bottom">
+    <ion-button (click)="convert()" shape="round" expand="full" color="primary"
+      >Quy đổi</ion-button
+    >
+  </div>
+  @if(isLoading){
+  <div class="ion-text-center">
+    <ion-spinner></ion-spinner>
+  </div>
+  }@else if(valueConvert){
   <div>
-    <ion-button color="primary">Quy đổi</ion-button>
+    <ion-input
+      label="Giá quy đổi"
+      labelPlacement="stacked"
+      fill="outline"
+      readonly
+      color="primary"
+      [(ngModel)]="valueConvert"
+      [maskito]="maskOpts"
+    >
+      <ion-label slot="end">VND</ion-label>
+    </ion-input>
   </div>
+  }
 </ion-content>

@@ -9,6 +9,8 @@ export const ApiUrl = {
     ListGoldArea: () => 'exchange-rate/list-area-gold',
     ListBank: () => 'exchange-rate-bank/list-banks',
     ListGoldAreaOption: () => 'exchange-rate/list-area-gold',
+    ConvertGoldWorld: () => 'exchange-rate/exchange-gold-world',
+    ConvertGold: () => 'exchange-rate/exchange-gold-tudo',
   },
   Article: {
     List: () => '/news/list-news',
@@ -17,7 +19,7 @@ export const ApiUrl = {
   },
   Biexce: {
     Exchange: {
-      List: () => 'exchange/list-exchange'
+      List: () => 'exchange/list-exchange',
     },
   },
 };
