@@ -1,9 +1,10 @@
 html {
     --ion-font-family: "IBM Plex Sans", sans-serif !important;
     --bg-home: #f3f3f3;
-    --bg-exchange:#fff;
-    --title-tab-ative:#000;
+    --bg-exchange: #fff;
+    --title-tab-ative: #000;
 }
+
 .truncate {
     overflow: hidden;
     white-space: nowrap;
@@ -124,6 +125,10 @@ html {
 }
 
 
-.text-primary{
+.text-primary {
     color: var(--ion-color-primary)
+}
+
+.w-100 {
+    width: 100%;
 }

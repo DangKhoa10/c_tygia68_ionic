@@ -1,0 +1,41 @@
+.input-custom {
+    width: 100%;
+    position: relative;
+
+    input {
+        width: 100%;
+        padding: 0 16px;
+        border: 1px solid var(--border-table-color);
+        height: 56px;
+        outline: none;
+        background-color: transparent;
+        border-radius: 8px;
+
+        &:focus {
+            border-color: var(--ion-color-primary);
+
+
+            &~.slot-label {
+                color: var(--ion-color-primary);
+            }
+        }
+    }
+
+    .slot-label {
+        position: absolute;
+        font-size: 12px;
+        padding: 0 4px;
+        background: var(--bg-exchange);
+        z-index: 111;
+        left: 16px;
+        top: 0;
+        transform: translateY(-50%);
+    }
+
+    .slot-text-end {
+        position: absolute;
+        top: 50%;
+        right: 16px;
+        transform: translateY(-50%);
+    }
+}

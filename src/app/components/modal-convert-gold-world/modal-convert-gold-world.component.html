@@ -13,30 +13,20 @@
 </ion-header>
 <ion-content class="content-modal ion-padding modal-content">
   <div class="ion-margin-bottom">
-    <ion-input
-      label="Giá thế giới"
-      labelPlacement="stacked"
-      placeholder="Nhập giá"
-      fill="outline"
-      color="primary"
+    <app-input-custom
       [(ngModel)]="goldValue"
-      [maskito]="maskOpts"
-    >
-      <ion-label slot="end">USD</ion-label>
-    </ion-input>
+      [slotEndText]="'USD'"
+      [label]="'Giá thế giới'"
+      [placeholder]="'Nhập giá'"
+    ></app-input-custom>
   </div>
   <div class="ion-margin-bottom">
-    <ion-input
-      label="Tỷ giá USD/VND"
-      labelPlacement="stacked"
-      placeholder="Nhập giá"
-      fill="outline"
-      color="primary"
+    <app-input-custom
       [(ngModel)]="exchangeValue"
-      [maskito]="maskOpts"
-    >
-      <ion-label slot="end">VND</ion-label>
-    </ion-input>
+      [slotEndText]="'VND'"
+      [label]="'Tỷ giá USD/VND'"
+      [placeholder]="'Nhập giá'"
+    ></app-input-custom>
   </div>
   <div class="ion-margin-bottom">
     <ion-button (click)="convert()" expand="block" color="primary"

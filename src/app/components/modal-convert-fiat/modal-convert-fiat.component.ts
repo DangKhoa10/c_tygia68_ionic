@@ -7,13 +7,14 @@ import { MaskitoOptions, maskitoTransform } from '@maskito/core';
 import { maskitoNumberOptionsGenerator } from '@maskito/kit';
 import { addIcons } from 'ionicons';
 import { chevronBack } from 'ionicons/icons';
+import { InputCustomComponent } from 'src/app/shared/components/input-custom/input-custom.component';
 import { CurrencyPrecision } from 'src/app/shared/libs/currency';
 import { CurrencyExchangeModel } from 'src/app/shared/models/exchange-biexce.model';
 import { ExchangeService } from 'src/app/shared/services/exchange.service';
 @Component({
   selector: 'app-modal-convert-fiat',
   standalone: true,
-  imports: [IonicModule, FormsModule, MaskitoDirective, CommonModule],
+  imports: [IonicModule, FormsModule, MaskitoDirective, CommonModule, InputCustomComponent],
   templateUrl: './modal-convert-fiat.component.html',
   styleUrls: ['./modal-convert-fiat.component.scss'],
 })

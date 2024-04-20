@@ -6,6 +6,7 @@ import { MaskitoOptions, maskitoTransform } from '@maskito/core';
 import { maskitoNumberOptionsGenerator } from '@maskito/kit';
 import { addIcons } from 'ionicons';
 import { chevronBack } from 'ionicons/icons';
+import { InputCustomComponent } from 'src/app/shared/components/input-custom/input-custom.component';
 import { QueryExchangeModel } from 'src/app/shared/models/exchange.model';
 import { ExchangeService } from 'src/app/shared/services/exchange.service';
 
@@ -14,7 +15,7 @@ import { ExchangeService } from 'src/app/shared/services/exchange.service';
   templateUrl: './modal-convert-gold.component.html',
   styleUrls: ['./modal-convert-gold.component.scss'],
   standalone: true,
-  imports: [IonicModule, FormsModule, MaskitoDirective],
+  imports: [IonicModule, FormsModule, MaskitoDirective, InputCustomComponent],
 })
 export class ModalConvertGoldComponent implements OnInit, OnDestroy {
   maskOpts: MaskitoOptions = maskitoNumberOptionsGenerator({

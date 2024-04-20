@@ -13,17 +13,13 @@
 </ion-header>
 <ion-content class="content-modal ion-padding modal-content">
   <div class="ion-margin-bottom">
-    <ion-input
-      label="Giá thế giới"
-      labelPlacement="stacked"
-      placeholder="Nhập giá"
-      fill="outline"
-      color="primary"
+    <app-input-custom
       [(ngModel)]="goldValue"
-      [maskito]="maskOpts"
+      [label]="'Giá thế giới'"
+      [placeholder]="'Nhập giá'"
+      [slotEndText]="'USD'"
     >
-      <ion-label slot="end">USD</ion-label>
-    </ion-input>
+    </app-input-custom>
   </div>
   <div class="ion-margin-bottom">
     <ion-button (click)="convert()" expand="block" color="primary"

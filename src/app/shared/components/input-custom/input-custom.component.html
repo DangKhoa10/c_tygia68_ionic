@@ -1,0 +1,10 @@
+<div class="input-custom">
+  <input
+    [placeholder]="placeholder"
+    [(ngModel)]="value"
+    (ngModelChange)="changeValue($event)"
+    [maskito]="maskOpts"
+  />
+  <ion-label class="slot-label">{{ label }}</ion-label>
+  <ion-label class="slot-text-end">{{ slotEndText }}</ion-label>
+</div>

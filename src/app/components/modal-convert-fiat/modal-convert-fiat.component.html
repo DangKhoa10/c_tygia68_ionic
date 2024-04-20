@@ -13,17 +13,12 @@
 </ion-header>
 <ion-content class="content-modal ion-padding modal-content">
   <div class="ion-margin-bottom">
-    <ion-input
-      label="Số lượng"
-      labelPlacement="stacked"
-      placeholder="Nhập số lượng"
-      fill="outline"
-      color="primary"
+    <app-input-custom
       [(ngModel)]="value"
-      [maskito]="maskOpts"
-    >
-      <ion-label slot="end">{{ from }}</ion-label>
-    </ion-input>
+      [placeholder]="'Nhập số lượng'"
+      [label]="'Số lượng'"
+      [slotEndText]="from"
+    ></app-input-custom>
   </div>
   <div class="ion-margin-bottom">
     <ion-select

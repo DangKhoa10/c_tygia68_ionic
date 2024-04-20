@@ -8,12 +8,13 @@ import { FormsModule } from '@angular/forms';
 import { MaskitoDirective } from '@maskito/angular';
 import { ExchangeService } from 'src/app/shared/services/exchange.service';
 import { QueryExchangeModel } from 'src/app/shared/models/exchange.model';
+import { InputCustomComponent } from 'src/app/shared/components/input-custom/input-custom.component';
 @Component({
   selector: 'app-modal-convert-gold-world',
   templateUrl: './modal-convert-gold-world.component.html',
   styleUrls: ['./modal-convert-gold-world.component.scss'],
   standalone: true,
-  imports: [IonicModule, FormsModule, MaskitoDirective],
+  imports: [IonicModule, FormsModule, MaskitoDirective, InputCustomComponent],
 })
 export class ModalConvertGoldWorldComponent implements OnInit, OnDestroy {
   maskOpts: MaskitoOptions = maskitoNumberOptionsGenerator({
