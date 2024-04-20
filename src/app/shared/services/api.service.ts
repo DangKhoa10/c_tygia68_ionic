@@ -120,7 +120,7 @@ export class ApiService {
         })
         .pipe(
           map((response) => {
-            if (response.status == true) {
+            if (response) {
               return response.data;
             } else {
               throw response;

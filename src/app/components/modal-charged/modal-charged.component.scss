@@ -1,14 +1,12 @@
-
 .modal-chared-conent {
-   
     .form-group {
         position: relative;
-        ion-input{
-            input{
-                padding-right:60px ;
+        ion-input {
+            input {
+                padding-right: 60px;
             }
         }
-        .input-action{
+        .input-action {
             position: absolute;
             right: 10px;
             top: 50%;
@@ -17,5 +15,28 @@
             // min-width: 200px;
         }
     }
-   
+}
+.charged-table {
+    &-header {
+        ion-col{
+            color: var(--ion-color-primary);
+            font-weight: bold;
+        }
+    }
+    &-row {
+        // border: 1px solid var(--border-table-color);
+        ion-col {
+            border: 1px solid var(--border-table-color);
+        }
+    }
+    ion-col {
+        border: 1px solid var(--border-table-color);
+        padding: 10px;
+    }
+    &-item {
+        margin-bottom: 10px;
+        .price{
+            font-weight: bold;
+        }
+    }
 }

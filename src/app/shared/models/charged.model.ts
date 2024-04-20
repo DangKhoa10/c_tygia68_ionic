@@ -1,9 +1,9 @@
 export interface ChargedModel {
-  amount?: number;
+  amount?: string;
   interest?: string;
-  money?: number;
+  money?: string;
   month?: number;
-  total?: number;
+  total?: string;
 }
 export interface TotalCharged {
   totalInterest?: number;

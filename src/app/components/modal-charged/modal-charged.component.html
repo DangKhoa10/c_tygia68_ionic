@@ -10,10 +10,13 @@
 </ion-header>
 <ion-content class="ion-padding modal-chared-conent modal-content">
   <div class="form-group ion-margin-bottom">
-    <ion-input label="Số tiền vay" label-placement="floating"
+    <app-input-custom [(ngModel)]="exchangeValue"
+      [label]="'Số tiền vay'"
+      [placeholder]="'Nhập giá'"></app-input-custom>
+    <!-- <ion-input label="Số tiền vay" label-placement="floating"
       fill="outline"
       [(ngModel)]="exchangeValue"
-      [maskito]="maskOpts"></ion-input>
+      [maskito]="maskOpts"></ion-input> -->
 
   </div>
   <div class="form-group ion-margin-bottom">
@@ -24,7 +27,7 @@
     <div class="input-action">
       <ion-select [interfaceOptions]="customPopoverOptions"
         [value]="time_unit_id" [(ngModel)]="time_unit_id"
-        interface="popover" placeholder="Select One">
+        interface="popover" placeholder="Thời gian">
         <ion-select-option value="1">Năm</ion-select-option>
         <ion-select-option value="2">Tháng</ion-select-option>
       </ion-select>
@@ -49,7 +52,7 @@
         dần</ion-select-option>
     </ion-select>
   </div>
-  <div>
+  <div class="ion-margin-bottom">
     <ion-button shape="round" expand="full" color="primary"
       (click)="charged()">Xem kết
       quả</ion-button>
@@ -60,22 +63,52 @@
     <ion-spinner></ion-spinner>
   </div>
   }@else if(dataCharged) {
-
-  }
-    <div>
-    <ion-grid class="charged-table">
-      <ion-row class="charged-table-header">
-        <ion-col class="ion-text-start">Tháng</ion-col>
-        <ion-col class="ion-text-end">Kết quả</ion-col>
-      </ion-row>
-    </ion-grid>
+  <div class="ion-margin-bottom">
+    <ion-label color="primary" >Sau đây là lịch trả nợ
+      (Chỉ mang tính chất tham khảo)</ion-label>
   </div>
   <ion-grid class="charged-table">
+    <ion-row class="charged-table-header">
+      <ion-col class="ion-text-center" size="4" >Tháng</ion-col>
+      <ion-col class="ion-text-center" size="8">Kết quả</ion-col>
+    </ion-row>
     <ion-row *ngFor="let item of dataCharged" class="charged-table-row">
-      <ion-col class="ion-text-start flex items-center">
-          {{item.month}}
+      <ion-col class=" flex ion-justify-content-center ion-align-items-center "
+        size="4">
+        {{item.month}}
       </ion-col>
-      <ion-col class="ion-text-start flex items-center"></ion-col>
+      <ion-col class="ion-text-start  " size="8">
+        <div class="charged-table-item">
+          <span class="tite">Vốn gốc còn lại :</span> <span class="price">
+            {{item.amount}}</span>
+        </div>
+        <div class="charged-table-item">
+          <span class="tite">Vốn gốc phải trả :</span> <span class="price">
+            {{item.money}}</span>
+        </div>
+        <div class="charged-table-item">
+          <span class="tite">Lãi phải trả :</span> <span class="price">
+            {{item.interest}}</span>
+        </div>
+        <div class="charged-table-item">
+          <span class="tite">Gốc + lãi :</span> <span class="price">
+            {{item.total}}</span>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row class="charged-table-row">
+      <ion-col class="flex ion-justify-content-center ion-align-items-center " size="4">Tổng</ion-col>
+      <ion-col  size="8">
+        <div class="charged-table-item">
+          <span class="tite">Lãi phải trả:</span> <span class="price">
+            {{totalInterest}}</span>
+        </div><div class="charged-table-item">
+          <span class="tite">Gốc + lãi :</span> <span class="price">
+            {{totalMoney}}</span>
+        </div>
+      </ion-col>
     </ion-row>
   </ion-grid>
+  }
+
 </ion-content>
