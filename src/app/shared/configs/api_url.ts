@@ -16,9 +16,8 @@ export const ApiUrl = {
   },
   Article: {
     List: () => '/news/list-news',
-    Detail:() =>'/news/get',
     Categories: () => 'article/categories',
-    Article: (id: number) => `article/${id}`,
+    Detail:()  => '/news/get/',
   },
 
   Biexce: {

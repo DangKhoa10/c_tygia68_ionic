@@ -1,3 +1,5 @@
+
+
 export interface ArticleModel {
   code: string;
   created_at: string;
@@ -6,4 +8,11 @@ export interface ArticleModel {
   image: string;
   link: string;
   title: string;
+}
+export interface QueryArticle{
+  page?: number;
+  limit?: number;
+  sort?: string;
+  search?: string;
+  code?: string;
 }

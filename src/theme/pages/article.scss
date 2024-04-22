@@ -27,22 +27,25 @@
         padding-inline-end: 0px;
     }
     ion-thumbnail {
-        --size: 140px;
+        --size: 100%;
         --border-radius: 4px;
         height: initial;
+        margin: 0 !important;
     }
     .title_posts {
     }
     .post-featured {
-        color: #ccc;
+        color: #ccc ;
         .post-date {
             padding-bottom: 0 !important;
         }
     }
     .arrticle-list {
+        --ion-item-background:transparent;
+
         .arrticle-item {
-            border-bottom: 1px solid #ccc;
-            margin-bottom: 15px;
+            // border-bottom: 1px solid #ccc;
+            margin-bottom: 40px;
             .content {
                 border: none;
                 .arrticle-item-title {
@@ -53,6 +56,13 @@
                 .arrticle-item-date {
                     color: #ccc;
                     margin-top: 15px;
+                }
+                .arrticle-more{
+                    text-decoration: none;
+                    display: flex;
+                    ion-icon{
+                        margin-left: 5px;
+                    }
                 }
             }
         }

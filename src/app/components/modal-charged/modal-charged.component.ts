@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ModalController } from '@ionic/angular';
 import { addIcons } from 'ionicons';
@@ -45,7 +45,9 @@ export class ModalChargedComponent implements OnInit {
   dataCharged: ChargedModel[];
   totalInterest: any = '';
   totalMoney:any=''
-  ngOnInit() {}
+  ngOnInit() {
+
+  }
   cancel() {
     return this.modalCtrl.dismiss(null, 'cancel');
   }

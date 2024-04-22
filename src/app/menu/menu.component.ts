@@ -73,6 +73,7 @@ export class MenuComponent implements OnInit {
       case 'CALCULATOR':
         const modalCHARGED = await this.modalCtrl.create({
           component: ModalChargedComponent,
+  
         });
         modalCHARGED.present();
         break;

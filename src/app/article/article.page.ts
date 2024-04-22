@@ -7,11 +7,20 @@ import {
   AfterViewInit,
 } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
-import { InfiniteScrollCustomEvent, ToastController } from '@ionic/angular';
+import {
+  InfiniteScrollCustomEvent,
+  ToastController,
+  ModalController,
+} from '@ionic/angular';
 import * as moment from 'moment';
 import { ArticleService } from '../shared/services/article.service';
 import { ArticleModel } from '../shared/models/article.model';
 import { QueryModel } from '../shared/models/query.model';
+
+import { ArticleDetailComponent } from './components/article-detail/article-detail.component';
+import { addIcons } from 'ionicons';
+import { chevronBackOutline,arrowForwardOutline } from 'ionicons/icons';
+
 @Component({
   selector: 'app-article',
   templateUrl: './article.page.html',
@@ -28,25 +37,21 @@ export class ArticlePage implements OnInit, AfterViewInit {
   infiniteLoad: boolean = false;
   page: Number | undefined;
   protected ArticleService = inject(ArticleService);
-  data_first = signal<ArticleModel>({
-    code: '',
-    created_at: '',
-    description: '',
-    id: 0,
-    image: '',
-    link: '',
-    title: '',
-  });
+
   data: ArticleModel[];
   loaded: boolean = false;
   lazyLoadImage =
     'https://limosa.vn/wp-content/uploads/2023/08/Loading-la-gi.jpg';
-  constructor(public toastController: ToastController) {}
+
+  constructor(
+    public toastController: ToastController,
+    private modalCtrl: ModalController
+  ) {
+    addIcons({ arrow: arrowForwardOutline });
+  }
 
   ngOnInit() {}
-  ngAfterViewInit(): void {
-   
-  }
+  ngAfterViewInit(): void {}
   async imageWillLoad(e: any) {}
   ListArticle = effect(() => {
     this.ArticleService.ListArticle(this.query()).then((value) => {
@@ -57,13 +62,19 @@ export class ArticlePage implements OnInit, AfterViewInit {
       if (query.page! > 1) {
         this.data = [...this.data, ...value];
       } else {
-        let newData = value.shift();
-        this.data_first.set(newData!);
         this.data = value;
       }
     });
   });
-
+  async openModal(id: string) {
+    const modalCHARGED = await this.modalCtrl.create({
+      component: ArticleDetailComponent,
+      componentProps: {
+        idAr:id
+      },
+    });
+    modalCHARGED.present();
+  }
   onIonInfinite(ev: any) {
     if (this.isLoadmore) {
       let queryN = { ...this.query() };

@@ -1,7 +1,11 @@
 
-<ion-header [translucent]="true" (click)="checkCanGoBack()">
+<ion-header [translucent]="true" (click)="cancel()">
   <ion-toolbar class="header-top">
-    <ion-icon name="back" size="large"></ion-icon> <ion-title>Quay
+    <ion-buttons slot="start">
+      <ion-button (click)="cancel()">
+        <ion-icon name="back"></ion-icon>
+      </ion-button>
+    </ion-buttons> <ion-title>Quay
       lại</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,15 +13,20 @@
   <div id="article-detail" class="ion-padding">
     <div class="article-detail-bg">
       <ion-img
-        [src]="'https://tygia68.com/wp-content/uploads/2023/08/gia-bitcoin-hom-nay-118-quay-dau-giam-1.png'"
+        [src]="articleSingle()?.image"
         [alt]="'Silhouette of mountains'"
         [style.opacity]="loaded ? 1 : 0"
         (ionImgWillLoad)="imageWillLoad($event)"
         (ionImgDidLoad)="loaded = true"></ion-img>
     </div>
-    <h1 size="large" class="article-detail-title">Giá Bitcoin hôm nay
-      11/4: Halving Bitcoin thúc đẩy lực bán</h1>
-    <ion-label> 4/11/24</ion-label>
+    <h1 size="large"
+      class="article-detail-title">{{articleSingle()?.title}}</h1>
+    <ion-label>{{articleSingle()?.created_at | date}}</ion-label>
+    <section
+      *ngIf="sourceHMTLContent"
+      data-aos="fade-down"
+      class="mt-4 mb-5"
+      id="section-content"
+      [innerHTML]="sourceHMTLContent"></section>
   </div>
-
 </ion-content>
