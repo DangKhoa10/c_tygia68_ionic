@@ -12,6 +12,8 @@ import * as moment from 'moment';
 import { ArticleService } from '../shared/services/article.service';
 import { ArticleModel } from '../shared/models/article.model';
 import { QueryModel } from '../shared/models/query.model';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+
 @Component({
   selector: 'app-article',
   templateUrl: './article.page.html',
@@ -28,25 +30,19 @@ export class ArticlePage implements OnInit, AfterViewInit {
   infiniteLoad: boolean = false;
   page: Number | undefined;
   protected ArticleService = inject(ArticleService);
-  data_first = signal<ArticleModel>({
-    code: '',
-    created_at: '',
-    description: '',
-    id: 0,
-    image: '',
-    link: '',
-    title: '',
-  });
+
   data: ArticleModel[];
   loaded: boolean = false;
   lazyLoadImage =
     'https://limosa.vn/wp-content/uploads/2023/08/Loading-la-gi.jpg';
-  constructor(public toastController: ToastController) {}
+
+  constructor(
+    public toastController: ToastController,
+
+  ) {}
 
   ngOnInit() {}
-  ngAfterViewInit(): void {
-   
-  }
+  ngAfterViewInit(): void {}
   async imageWillLoad(e: any) {}
   ListArticle = effect(() => {
     this.ArticleService.ListArticle(this.query()).then((value) => {
@@ -57,8 +53,6 @@ export class ArticlePage implements OnInit, AfterViewInit {
       if (query.page! > 1) {
         this.data = [...this.data, ...value];
       } else {
-        let newData = value.shift();
-        this.data_first.set(newData!);
         this.data = value;
       }
     });

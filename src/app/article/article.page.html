@@ -11,38 +11,31 @@
         tức</ion-title>
     </ion-toolbar>
   </ion-header>
-  <ion-card class="post-featured">
-    <img [alt]="data_first().title" 
-       [lazyLoad]="data_first().image"  />
-    <ion-card-header>
-      <ion-card-title>{{data_first().title}}</ion-card-title>
-    </ion-card-header>
-    <ion-card-content class="post-date">{{data_first().created_at | date:
-      'short'}}
-    </ion-card-content>
-  </ion-card>
+
   <div class="wrapper_article">
     <ion-card>
       <ion-list class="arrticle-list">
-        <ion-item *ngFor="let item of data" lines="inset"
+        <div class="arrticle-item" *ngFor="let item of data" lines="inset"
           class="arrticle-item">
-          <ion-thumbnail slot="start">
-            <ion-img
-            [src]="item.image" [alt]="item.title" 
-            [style.opacity]="loaded ? 1 : 0"
-            (ionImgWillLoad)="imageWillLoad($event)"
-            (ionImgDidLoad)="loaded = true" 
-            [lazyLoad]="lazyLoadImage" ></ion-img>
-          </ion-thumbnail>
-          <div class="content">
-            <a [routerLink]="('/article/1')" class="arrticle-item-title ">
-              <ion-label>{{ item.title
-                }}</ion-label></a>
-            <p class="arrticle-item-date">{{item.created_at | date:
-              'short'}}</p>
+          <div class="thum ion-margin-bottom">
+            <ion-thumbnail slot="start">
+              <ion-img
+                [src]="item.image" [alt]="item.title"
+                [style.opacity]="loaded ? 1 : 0"
+                (ionImgWillLoad)="imageWillLoad($event)"
+                (ionImgDidLoad)="loaded = true"
+                [lazyLoad]="lazyLoadImage"></ion-img>
+            </ion-thumbnail>
           </div>
-
-        </ion-item>
+          <div class="content">
+            <h2 class="arrticle-title">
+              <a [routerLink]="('/article/'  + item.code)" class="arrticle-item-title ">
+                {{ item.title
+                }}</a>
+            </h2>
+            <a [routerLink]="('/article/' + item.code)">Xem thêm</a>
+          </div>
+        </div>
       </ion-list>
       @if(isLoadmore){
       <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)"
