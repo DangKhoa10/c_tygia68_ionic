@@ -1,8 +1,8 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, Input, OnInit, inject, signal } from '@angular/core';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { NavController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 import { addIcons } from 'ionicons';
 import { chevronBackOutline } from 'ionicons/icons';
 import { NgForm } from '@angular/forms';
@@ -21,8 +21,9 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
   styleUrls: ['./article-detail.component.scss'],
 })
 export class ArticleDetailComponent implements OnInit {
+  @Input() idAr:any;
   protected sourceHMTLContent: SafeHtml;
-  private navController = inject(NavController);
+
   protected id: string;
   protected param: string;
   private route = inject(ActivatedRoute);
@@ -31,14 +32,15 @@ export class ArticleDetailComponent implements OnInit {
   protected articleSingle = signal<ArticleModel | null>(null);
   queryArti = signal<QueryArticle | null>(null);
   loaded: boolean = false;
-  constructor(private sanitizer: DomSanitizer) {
+  constructor(private sanitizer: DomSanitizer,   private modalCtrl: ModalController) {
     addIcons({ back: chevronBackOutline });
   }
 
   ngOnInit() {
-    this.param = this.route.snapshot.url[0].path;
-    this.id = this.route.snapshot.params['id'];
-    this.getArticleDetail(this.id);
+  
+    // this.param = this.route.snapshot.url[0].path;
+    // this.id = this.route.snapshot.params['id'];
+    this.getArticleDetail(this.idAr);
   }
 
   imageWillLoad(e: any) {}
@@ -53,9 +55,9 @@ export class ArticleDetailComponent implements OnInit {
       );
     });
   }
-  checkCanGoBack() {
-    const canGoBack = this.navController.back();
-    console.log('Can go back:', this.navController);
-    return canGoBack;
+
+  cancel() {
+    return this.modalCtrl.dismiss(null, 'cancel');
   }
+
 }

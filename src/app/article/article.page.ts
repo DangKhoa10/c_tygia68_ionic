@@ -7,12 +7,19 @@ import {
   AfterViewInit,
 } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
-import { InfiniteScrollCustomEvent, ToastController } from '@ionic/angular';
+import {
+  InfiniteScrollCustomEvent,
+  ToastController,
+  ModalController,
+} from '@ionic/angular';
 import * as moment from 'moment';
 import { ArticleService } from '../shared/services/article.service';
 import { ArticleModel } from '../shared/models/article.model';
 import { QueryModel } from '../shared/models/query.model';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+
+import { ArticleDetailComponent } from './components/article-detail/article-detail.component';
+import { addIcons } from 'ionicons';
+import { chevronBackOutline,arrowForwardOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-article',
@@ -38,8 +45,10 @@ export class ArticlePage implements OnInit, AfterViewInit {
 
   constructor(
     public toastController: ToastController,
-
-  ) {}
+    private modalCtrl: ModalController
+  ) {
+    addIcons({ arrow: arrowForwardOutline });
+  }
 
   ngOnInit() {}
   ngAfterViewInit(): void {}
@@ -57,7 +66,15 @@ export class ArticlePage implements OnInit, AfterViewInit {
       }
     });
   });
-
+  async openModal(id: string) {
+    const modalCHARGED = await this.modalCtrl.create({
+      component: ArticleDetailComponent,
+      componentProps: {
+        idAr:id
+      },
+    });
+    modalCHARGED.present();
+  }
   onIonInfinite(ev: any) {
     if (this.isLoadmore) {
       let queryN = { ...this.query() };
