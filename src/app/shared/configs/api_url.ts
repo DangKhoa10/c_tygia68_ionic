@@ -27,7 +27,8 @@ export const ApiUrl = {
       CalculateRate: () => 'exchange/calculate',
     },
     Merchant:{
-      List:() =>'post'
+      List:() =>'post',
+      MerchantDetail: (id: number) => `post/${id}`,
     }
   },
   Charged: {

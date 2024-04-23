@@ -1,35 +1,44 @@
 import { Component, OnInit, effect, inject, signal } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
-import { AdsModel, QueryAds } from '../shared/models/ads.model';
+import { PostModel, QueryPost } from '../shared/models/ads.model';
 import { PaginationBiexeModel } from '../shared/models/pagination.model';
-import { AdsService } from '../shared/services/ads.service';
+import { MerchantService } from '../shared/services/merchant.service';
 import { PaginationComponent } from '../shared/components/pagination/pagination.component';
-
+import { InfiniteScrollCustomEvent, ModalController } from '@ionic/angular';
+import { AdsDetailComponent } from './components/ads-detail/ads-detail.component';
 @Component({
   selector: 'app-ads',
   templateUrl: './ads.page.html',
   styleUrls: ['./ads.page.scss'],
   standalone: true,
-  imports: [SharedModule,PaginationComponent],
+  imports: [SharedModule, PaginationComponent],
 })
 export class AdsPage implements OnInit {
-  query = signal<QueryAds>({
+  query = signal<QueryPost>({
     page: 1,
     limit: 50,
     key: 'merchant',
   });
-  dataAds: AdsModel[];
+  dataAds: PostModel[];
   protected meta = signal<PaginationBiexeModel | null>(null);
-  adsService: AdsService = inject(AdsService);
-  constructor() {}
+  adsService: MerchantService = inject(MerchantService);
+  constructor(private modalCtrl: ModalController) {}
 
   ngOnInit() {}
   ListMerchant = effect(() => {
     this.adsService.ListMerchant(this.query()).then((result) => {
       const { data, meta } = result;
       this.dataAds = data;
-      console.log(data);
       this.meta.set(meta ? { ...meta } : null);
     });
   });
+  async openModal(id: number) {
+    const modalCHARGED = await this.modalCtrl.create({
+      component: AdsDetailComponent,
+      componentProps: {
+        idAr: id,
+      },
+    });
+    modalCHARGED.present();
+  }
 }
