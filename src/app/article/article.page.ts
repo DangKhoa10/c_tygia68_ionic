@@ -12,14 +12,13 @@ import {
   ToastController,
   ModalController,
 } from '@ionic/angular';
-import * as moment from 'moment';
 import { ArticleService } from '../shared/services/article.service';
 import { ArticleModel } from '../shared/models/article.model';
 import { QueryModel } from '../shared/models/query.model';
 
 import { ArticleDetailComponent } from './components/article-detail/article-detail.component';
 import { addIcons } from 'ionicons';
-import { chevronBackOutline,arrowForwardOutline } from 'ionicons/icons';
+import { arrowForwardOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-article',

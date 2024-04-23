@@ -1,0 +1,30 @@
+
+
+<ion-header [translucent]="true" (click)="cancel()">
+  <ion-toolbar class="header-top">
+    <ion-buttons slot="start">
+      <ion-button (click)="cancel()">
+        <ion-icon name="back"></ion-icon>
+      </ion-button>
+    </ion-buttons> <ion-title>Quay
+      lại</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <div class="merchant-detail" >
+    <div class="merchant-thumnail">
+      <ion-img
+        [src]="dataMerchant()?.extra?.thumbnail"
+        [alt]="'Silhouette of mountains'"
+        ></ion-img>
+    </div>
+    <h1 size="large"
+      class="merchant-detail-title">{{dataMerchant()?.name}}</h1>
+    <ion-label class="merchant-detail-date">{{dataMerchant()?.updatedAt| date}}</ion-label>
+    <section
+      data-aos="fade-down"
+      class="mt-4 mb-5 merchant-detail-des"
+      id="section-content"
+      [innerHTML]="dataMerchant()?.content"></section>
+  </div>
+</ion-content>
