@@ -39,12 +39,12 @@
           <ion-label>{{ item.label }}</ion-label>
         </ion-item>
       </ion-list>
-      @if(valueChoose_2()==="USDT"){
+      <!-- @if(valueChoose_2()==="USDT"){
       <app-exchange-biexce [type]="'USDT'"></app-exchange-biexce>
       }@else if(valueChoose_2()==="CRYPTO"){
       <app-exchange-biexce [type]="'CRYPTO'"></app-exchange-biexce>
-      }@else {
-      <app-exchange [type]="valueChoose_2()"></app-exchange>}
+      }@else {} -->
+      <app-exchange [type]="valueChoose_2()"></app-exchange>
     </div>
     <div class="wrapper">
       <ion-list class="exchange-list">

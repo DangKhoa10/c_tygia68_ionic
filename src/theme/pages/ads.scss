@@ -1,0 +1,50 @@
+.ads-page {
+    .ads-list {
+        .ads-item {
+            align-items: stretch;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            width: 100%;
+            .ads-img {
+                max-width: 50%;
+                margin-right: 15px;
+                img {
+                    aspect-ratio: 16 / 9;
+                    border-bottom-left-radius: 8px;
+                    border-top-left-radius: 8px;
+                    object-fit: cover;
+                    width: 100%;
+                }
+            }
+            .ads-content {
+                display: flex;
+                flex: 1;
+                flex-direction: column;
+                .title {
+                    -webkit-line-clamp: 1;
+                    -webkit-box-orient: vertical;
+                    display: -webkit-box;
+                    font-size: 16px;
+                    margin-bottom: 8px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    word-break: break-word;
+                    margin-top: 0;
+                }
+                .desc {
+                    -webkit-line-clamp: 2;
+                    -webkit-box-orient: vertical;
+                    display: -webkit-box;
+                    font-size: 14px;
+                    font-weight: 400;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    word-break: break-word;
+                    color: #8c94a1;
+                    line-height: 28px;
+                }
+            }
+        }
+    }
+}

@@ -22,6 +22,16 @@ export const routes: Routes = [
         ],
       },
       {
+        path: 'ads',
+        children: [
+          {
+            path: '',
+            loadComponent: () =>
+              import('../ads/ads.page').then((m) => m.AdsPage),
+          },
+        ],
+      },
+      {
         path: '',
         redirectTo: '/home',
         pathMatch: 'full',
