@@ -219,6 +219,7 @@ export class ApiService {
         }
       }
     }
+    headers = headers.set('X-Locale', 'vi');
 
     // const token = this.authStore.se((state) => state.token);
     // console.log(token);

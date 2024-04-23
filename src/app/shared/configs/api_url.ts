@@ -26,6 +26,9 @@ export const ApiUrl = {
       ListCurrencies: () => 'exchange/currencies',
       CalculateRate: () => 'exchange/calculate',
     },
+    Merchant:{
+      List:() =>'post'
+    }
   },
   Charged: {
     calculateloan: () => 'loan/calculate-loan',

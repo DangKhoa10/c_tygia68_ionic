@@ -46,7 +46,6 @@ export class ModalChargedComponent implements OnInit {
   totalInterest: any = '';
   totalMoney:any=''
   ngOnInit() {
-
   }
   cancel() {
     return this.modalCtrl.dismiss(null, 'cancel');
