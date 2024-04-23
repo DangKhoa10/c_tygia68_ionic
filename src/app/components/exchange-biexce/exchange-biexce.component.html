@@ -2,16 +2,24 @@
   <div>
     @if(isSearch()){
     <div class="exchange-search">
-      <input type="text" placeholder="Tìm kiếm" [(ngModel)]="searchKey" (ngModelChange)="search($event)"  />
+      <input
+        type="text"
+        placeholder="Tìm kiếm"
+        [(ngModel)]="searchKey"
+        (ngModelChange)="search($event)"
+      />
       <ion-icon name="search"></ion-icon>
     </div>
     }@else{}
     <ion-grid class="exchange-table">
       <ion-row class="exchange-table-header">
         <ion-col class="ion-text-start">Tên</ion-col>
+        @if(type !== 'CRYPTO'){
         <ion-col class="ion-text-end">Mua</ion-col>
         <ion-col class="ion-text-end">Bán</ion-col>
-        @if(isShowChart()){
+        }@else{
+        <ion-col class="ion-text-end">Giá</ion-col>
+        } @if(isShowChart()){
         <ion-col size="2" class="ion-text-end"></ion-col>
         }
       </ion-row>
@@ -23,14 +31,23 @@
   </div>
   }@else {
   <ion-grid class="exchange-table">
-    <ion-row *ngFor="let item of dataSearch()" class="exchange-table-row">
+    <ion-row
+      nowrap
+      *ngFor="let item of dataSearch()"
+      class="exchange-table-row"
+    >
       <ion-col class="ion-text-start flex items-center">
-        @if(isShowImage()){
+        @if(isShowImage()){ @if(['USDT', 'CRYPTO'].includes(type)){
+        <ion-img
+          class="mr-4"
+          [src]="item.baseCurrency | iconCurrency : 'URL'"
+        ></ion-img>
+        }@else {
         <ion-img
           class="mr-4"
           [src]="item.baseCurrency | iconCurrency"
         ></ion-img>
-        }
+        } }
         <span>
           {{ item.name }}
         </span>
@@ -54,6 +71,7 @@
           </ion-text>
         </div>
       </ion-col>
+      @if(type !== 'CRYPTO'){
       <ion-col class="ion-text-end flex flex-column justify-center">
         <ion-text [color]="item.changePriceSell >= 0 ? 'success' : 'danger'">
           {{ item.priceSell | number }}
@@ -73,7 +91,7 @@
           </ion-text>
         </div>
       </ion-col>
-      @if(isShowChart()){
+      } @if(isShowChart()){
       <ion-col
         size="2"
         class="flex justify-end items-center"

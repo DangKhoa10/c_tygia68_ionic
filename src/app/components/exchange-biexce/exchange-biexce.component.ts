@@ -145,11 +145,10 @@ export class ExchangeBiexceComponent implements OnInit, OnChanges, OnDestroy {
         this.isSearch.set(true);
         this.isShowImage.set(true);
         this.querySub.next({
-          limit: 10,
+          limit: 99999,
           page: 1,
           type: 'FIAT',
-          market: 'FREEMARKET',
-          country: 'VN',
+          targetCurrency: 'USD',
         });
         break;
       case 'USDT':
@@ -159,9 +158,8 @@ export class ExchangeBiexceComponent implements OnInit, OnChanges, OnDestroy {
         this.querySub.next({
           limit: 10,
           page: 1,
-          type: 'FIAT',
-          market: 'FREEMARKET',
-          country: 'VN',
+          type: 'CRYPTO',
+          targetCurrency: 'USDT',
         });
 
         break;
@@ -172,11 +170,9 @@ export class ExchangeBiexceComponent implements OnInit, OnChanges, OnDestroy {
         this.querySub.next({
           limit: 10,
           page: 1,
-          type: 'FIAT',
-          market: 'FREEMARKET',
-          country: 'VN',
+          type: 'CRYPTO',
+          targetCurrency: 'VND',
         });
-
         break;
       case 'AGRICULTURAL':
         this.isShowChart.set(false);
@@ -198,6 +194,23 @@ export class ExchangeBiexceComponent implements OnInit, OnChanges, OnDestroy {
   ngOnInit() {
     this.listExchange()?.subscribe({
       next: (result) => {
+        if (result.data.length > 0) {
+          for (let item of result.data) {
+            if (item.changePriceBuy == 0 && item.closePriceBuy != 0) {
+              item.changePriceBuy = item.priceBuy - item.closePriceBuy;
+            }
+            if (item.changePriceSell == 0 && item.closePriceSell != 0) {
+              item.changePriceSell = item.priceSell - item.closePriceSell;
+            }
+          }
+          if (this.type === 'FIAT') {
+            result.data = result.data.filter(
+              (item, index, self) =>
+                index === self.findIndex((t) => t.name === item.name)
+            );
+          }
+        }
+
         this.data.set([...result.data]);
         this.dataSearch.set([...result.data]);
         this.meta.set(result.meta ? { ...result.meta } : null);
@@ -261,6 +274,9 @@ export class ExchangeBiexceComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   async openChart(from: string, to: string) {
+    if (this.type === 'CRYPTO') {
+      to = 'USD';
+    }
     const modal = await this.modalCtrl.create({
       component: TradingviewComponent,
       componentProps: {

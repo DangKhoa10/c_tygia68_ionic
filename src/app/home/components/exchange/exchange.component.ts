@@ -42,6 +42,7 @@ import { FlagCurrencyPipe } from 'src/app/shared/pipes/flag-currency.pipe';
 import { IconCurrencyPipe } from 'src/app/shared/pipes/icon-currency.pipe';
 import { PaginationComponent } from 'src/app/shared/components/pagination/pagination.component';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-exchange',
@@ -60,6 +61,7 @@ import { FormsModule } from '@angular/forms';
 export class ExchangeComponent implements OnChanges, OnInit, OnDestroy {
   @Input() type: string;
 
+  router = inject(Router);
   searchKey: string;
   isLoading = false;
   isLoadMore = true;
@@ -138,7 +140,15 @@ export class ExchangeComponent implements OnChanges, OnInit, OnDestroy {
   }
 
   constructor(private modalCtrl: ModalController) {
-    addIcons({ barChart, caretDown, caretUp, search, cash, arrowForward, remove });
+    addIcons({
+      barChart,
+      caretDown,
+      caretUp,
+      search,
+      cash,
+      arrowForward,
+      remove,
+    });
   }
   ngOnDestroy(): void {
     if (this.intervalId) {
@@ -293,6 +303,10 @@ export class ExchangeComponent implements OnChanges, OnInit, OnDestroy {
       queryNew.page = 1;
       this.query.set(queryNew);
     }
+  }
+
+  directArticle() {
+    this.router.navigateByUrl('/tabs/article');
   }
 
   selectGoldArea(option: string) {
