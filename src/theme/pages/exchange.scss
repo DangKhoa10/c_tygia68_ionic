@@ -107,6 +107,10 @@
         }
 
         .exchange-table-row {
+            overflow-x: scroll !important;
+            overflow-y: hidden;
+            word-wrap: break-word;
+            flex-wrap: nowrap;
             padding: 0 8px;
             font-size: 14px;
             color: var(--ion-text-color, #000);

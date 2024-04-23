@@ -20,6 +20,8 @@
       </ion-list>
       @if(valueChoose()==="MARKET"){
       <app-exchange-biexce [type]="'MARKET'"></app-exchange-biexce>
+      }@else if(valueChoose()==="FIAT"){
+      <app-exchange-biexce [type]="'FIAT'"></app-exchange-biexce>
       }@else {
       <app-exchange [type]="valueChoose()"></app-exchange>
       }
@@ -37,7 +39,12 @@
           <ion-label>{{ item.label }}</ion-label>
         </ion-item>
       </ion-list>
-      <app-exchange [type]="valueChoose_2()"></app-exchange>
+      @if(valueChoose_2()==="USDT"){
+      <app-exchange-biexce [type]="'USDT'"></app-exchange-biexce>
+      }@else if(valueChoose_2()==="CRYPTO"){
+      <app-exchange-biexce [type]="'CRYPTO'"></app-exchange-biexce>
+      }@else {
+      <app-exchange [type]="valueChoose_2()"></app-exchange>}
     </div>
     <div class="wrapper">
       <ion-list class="exchange-list">
