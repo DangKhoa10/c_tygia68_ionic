@@ -4,22 +4,31 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="ads-page ion-padding">
+<ion-content [fullscreen]="true" class="merchant-page ion-padding">
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">Thương gia</ion-title>
     </ion-toolbar>
   </ion-header>
-  <div class="ads-list">
-    <div class="ads-item" *ngFor="let item of dataAds">
-      <div class="ads-img">
+  <div class="merchant-list">
+    <div class="merchant-item" *ngFor="let item of dataAds">
+      <div class="merchant-img" (click)="openModal(item.id)">
         <img [src]="item.extra.thumbnail" alt>
       </div>
-      <div class="ads-content">
+      <div class="merchant-content">
         <h5 class="title" (click)="openModal(item.id)">{{item.name}}</h5>
-        <div class="desc" [innerHTML]="item.content">
+        <div class="desc">
+          <p>{{item.extra.subTitle}}</p>
         </div>
       </div>
     </div>
   </div>
+  @if(isLoadmore){
+  <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)"
+    class="custom-loading">
+    <ion-infinite-scroll-content loadingSpinner="circles"
+      class="custom-loading-content">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+  }
 </ion-content>

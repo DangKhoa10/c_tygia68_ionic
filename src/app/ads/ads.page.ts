@@ -16,12 +16,13 @@ import { AdsDetailComponent } from './components/ads-detail/ads-detail.component
 export class AdsPage implements OnInit {
   query = signal<QueryPost>({
     page: 1,
-    limit: 50,
+    limit: 10,
     key: 'merchant',
   });
   dataAds: PostModel[];
   protected meta = signal<PaginationBiexeModel | null>(null);
   adsService: MerchantService = inject(MerchantService);
+  isLoadmore: boolean = true;
   constructor(private modalCtrl: ModalController) {}
 
   ngOnInit() {}
@@ -30,6 +31,10 @@ export class AdsPage implements OnInit {
       const { data, meta } = result;
       this.dataAds = data;
       this.meta.set(meta ? { ...meta } : null);
+      if(this.query().page === meta?.pageCount){
+          this.isLoadmore=false
+      }
+      
     });
   });
   async openModal(id: number) {
@@ -40,5 +45,17 @@ export class AdsPage implements OnInit {
       },
     });
     modalCHARGED.present();
+  }
+  onIonInfinite(ev: any) {
+    if (this.isLoadmore) {
+      let queryN = { ...this.query() };
+      queryN.page = queryN.page! + 1;
+      this.query.set(queryN);
+      setTimeout(() => {
+        (ev as InfiniteScrollCustomEvent).target.complete();
+      }, 1000);
+    } else {
+      (ev as InfiniteScrollCustomEvent).target.complete();
+    }
   }
 }

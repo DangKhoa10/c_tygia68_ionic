@@ -1,3 +1,53 @@
+.merchant-page {
+    .merchant-list {
+        .merchant-item {
+            align-items: stretch;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            width: 100%;
+            .merchant-img {
+                max-width: 45%;
+                margin-right: 15px;
+                img {
+                    aspect-ratio: 16 / 9;
+                    border-bottom-left-radius: 8px;
+                    border-top-left-radius: 8px;
+                    object-fit: cover;
+                    width: 100%;
+                }
+            }
+            .merchant-content {
+                display: flex;
+                flex: 1;
+                flex-direction: column;
+                .title {
+                    -webkit-line-clamp: 1;
+                    -webkit-box-orient: vertical;
+                    display: -webkit-box;
+                    font-size: 16px;
+                    margin-bottom: 8px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    word-break: break-word;
+                    margin-top: 0;
+                }
+                .desc {
+                    -webkit-line-clamp: 2;
+                    -webkit-box-orient: vertical;
+                    display: -webkit-box;
+                    font-size: 14px;
+                    font-weight: 400;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    word-break: break-word;
+                    color: #8c94a1;
+                    line-height: 24px;
+                }
+            }
+        }
+    }
+}
 .merchant-detail {
     &-title {
         margin: 15px 0;
@@ -6,8 +56,60 @@
         font-size: 20px;
         font-weight: bold;
     }
-    .merchant-detail-date{
+    .merchant-detail-date {
         color: #8c94a1;
+    }
+    #section-content {
+        font-size: 1.15em;
+        line-height: 1.6;
+
+
+        b,
+        strong {
+            font-weight: 600;
+        }
+
+        ul,
+        ol {
+            list-style: initial;
+            margin-top: 1em;
+            margin-bottom: 1em;
+            margin-left: 0;
+            margin-right: 0;
+            padding-left: 40px;
+        }
+
+        p {
+            display: block;
+            margin-top: 1em;
+            margin-bottom: 1em;
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            margin-top: initial;
+            margin-bottom: initial;
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        figure {
+            img {
+                max-width: 100%;
+            }
+
+            figcaption {
+                text-align: center;
+                font-size: 0.85em;
+                font-style: italic;
+            }
+        }
     }
     &-des {
         p {

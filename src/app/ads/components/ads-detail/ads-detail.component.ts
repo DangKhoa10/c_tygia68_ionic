@@ -5,6 +5,7 @@ import { addIcons } from 'ionicons';
 import { chevronBackOutline } from 'ionicons/icons';
 import { PostModel, QueryPost } from 'src/app/shared/models/ads.model';
 import { MerchantService } from 'src/app/shared/services/merchant.service';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 @Component({
   selector: 'app-ads-detail',
   templateUrl: './ads-detail.component.html',
@@ -17,7 +18,11 @@ export class AdsDetailComponent implements OnInit {
   dataMerchant = signal<PostModel | null>(null);
   loaded: boolean = false;
   merchantService: MerchantService = inject(MerchantService);
-  constructor(private modalCtrl: ModalController) {
+  protected sourceHMTLContent: SafeHtml;
+  constructor(
+    private modalCtrl: ModalController,
+    private sanitizer: DomSanitizer
+  ) {
     addIcons({ back: chevronBackOutline });
   }
 
@@ -28,7 +33,10 @@ export class AdsDetailComponent implements OnInit {
   getArticleDetail(id: number) {
     return this.merchantService.getDetail(id).then((data) => {
       const { detail } = data;
+      console.log(data.detail.content);
       this.dataMerchant.set(detail);
+      this.sourceHMTLContent=this.sanitizer.bypassSecurityTrustHtml(data.detail.content)
+      console.log(this.sourceHMTLContent);
     });
   }
   async imageWillLoad(e: any) {}

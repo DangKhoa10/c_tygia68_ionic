@@ -41,16 +41,17 @@ export class MenuComponent implements OnInit {
     },
     {
       id: 3,
-      name: 'Quy đổi giá vàng tự do',
-      icon: 'diamond',
-      action: 'GOLD',
-    },
-    {
-      id: 4,
       name: 'Quy đổi giá vàng thế giới',
       icon: 'diamond',
       action: 'GOLD_WORLD',
     },
+    {
+      id: 4,
+      name: 'Quy đổi giá vàng tự do',
+      icon: 'diamond',
+      action: 'GOLD',
+    },
+ 
   ];
 
   toggleChange(value: any | boolean) {
